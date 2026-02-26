@@ -41,7 +41,7 @@ export default function WhyHireMe() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="porque-contratar" className="relative py-32 overflow-hidden" ref={ref}>
+    <section id="porque-contratar" className="relative py-20 sm:py-24 md:py-32 overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-surface)] to-[var(--color-void)]" />
@@ -49,9 +49,9 @@ export default function WhyHireMe() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[var(--color-accent)]/5 blur-[150px] rounded-full" />
       </div>
 
-      <div className="relative px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
+      <div className="relative px-5 sm:px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
         <motion.h2
-          className="text-4xl md:text-6xl font-display font-bold mb-6 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-center"
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -61,17 +61,17 @@ export default function WhyHireMe() {
 
         {/* Hook - destaque visual */}
         <motion.div
-          className="relative my-16 p-8 md:p-12 rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent-dim)] overflow-hidden"
+          className="relative my-12 md:my-16 p-5 sm:p-6 md:p-12 rounded-2xl border border-[var(--color-accent)]/20 bg-[var(--color-accent-dim)] overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-accent)]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="relative z-10">
-            <p className="text-xl md:text-2xl font-display font-semibold text-white leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-semibold text-white leading-relaxed">
               Porque você não precisa apenas de alguém que escreva código.
             </p>
-            <p className="mt-4 text-xl md:text-2xl font-display font-semibold text-[var(--color-accent)] leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl font-display font-semibold text-[var(--color-accent)] leading-relaxed">
               Você precisa de alguém que entenda o seu negócio.
             </p>
           </div>
@@ -115,11 +115,11 @@ export default function WhyHireMe() {
           <h3 className="text-2xl font-display font-bold text-white mb-10">
             Você terá:
           </h3>
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {benefits.map((item, i) => (
               <motion.div
                 key={item.title}
-                className="group flex items-start gap-5 p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-dim)]/50 transition-all duration-300"
+                className="group flex items-start gap-4 sm:gap-5 p-4 sm:p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-accent)]/30 hover:bg-[var(--color-accent-dim)]/50 transition-all duration-300"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
@@ -160,7 +160,7 @@ export default function WhyHireMe() {
         >
           <motion.a
             href="#contato"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-lg"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-base sm:text-lg min-h-[44px]"
             whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(0,255,136,0.5)' }}
             whileTap={{ scale: 0.98 }}
             data-cursor-hover

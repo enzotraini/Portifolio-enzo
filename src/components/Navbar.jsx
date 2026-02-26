@@ -28,7 +28,7 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <nav className="flex items-center justify-between px-6 md:px-12 lg:px-24 py-6">
+        <nav className="flex items-center justify-between px-5 sm:px-6 md:px-12 lg:px-24 py-4 sm:py-6">
           <a href="#" className="font-display font-bold text-xl">
             EMT
           </a>

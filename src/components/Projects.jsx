@@ -32,14 +32,14 @@ export default function Projects() {
   const orbX = useTransform(scrollYProgress, [0, 0.5, 1], [-40, 20, -40])
 
   return (
-    <section id="projetos" className="relative py-32 px-6 md:px-12 lg:px-24 overflow-hidden" ref={ref}>
+    <section id="projetos" className="relative py-20 sm:py-24 md:py-32 px-5 sm:px-6 md:px-12 lg:px-24 overflow-hidden" ref={ref}>
       <motion.div
         style={{ x: orbX }}
         className="absolute -left-32 top-1/3 w-80 h-80 rounded-full bg-[var(--color-accent)]/5 blur-[120px] pointer-events-none"
       />
       <div className="relative">
       <motion.h2
-        className="text-4xl md:text-5xl font-display font-bold mb-20 relative"
+        className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-12 md:mb-20 relative"
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ export default function Projects() {
             data-cursor-hover
           >
             <motion.div
-              className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 h-full"
+              className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6 md:p-8 h-full"
               whileHover={{ y: -4, borderColor: 'rgba(0,255,136,0.2)' }}
               transition={{ duration: 0.3 }}
             >

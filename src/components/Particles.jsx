@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 export default function Particles() {
+  const prefersReducedMotion = useReducedMotion()
   const layers = useMemo(() => {
+    if (prefersReducedMotion) return []
     // Camada fundo: partículas grandes, lentas, baixa opacidade
     const far = Array.from({ length: 15 }, (_, i) => ({
       id: `far-${i}`,
@@ -38,7 +40,7 @@ export default function Particles() {
     }))
 
     return [...far, ...mid, ...near]
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">

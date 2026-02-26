@@ -14,7 +14,7 @@ export default function Hero() {
   const gradientOpacity = useTransform(scrollY, [0, 400, 800], [1, 0.5, 0])
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden min-h-[100dvh]">
       {/* Background com parallax */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div style={{ y: particlesY }} className="absolute inset-0">
@@ -50,7 +50,7 @@ export default function Hero() {
 
       <div className="relative z-10">
         <motion.div
-          className="flex flex-wrap gap-x-3 gap-y-1 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight"
+          className="flex flex-wrap gap-x-3 gap-y-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight"
           initial="hidden"
           animate="visible"
           variants={{
@@ -87,7 +87,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.p
-          className="mt-6 text-lg md:text-xl text-[var(--color-muted)] max-w-xl font-body"
+          className="mt-6 text-base sm:text-lg md:text-xl text-[var(--color-muted)] max-w-xl font-body"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
@@ -96,14 +96,14 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          className="mt-12 flex flex-wrap gap-4"
+          className="mt-12 flex flex-wrap gap-3 sm:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
           <motion.a
             href="#porque-contratar"
-            className="px-8 py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold"
+            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-sm sm:text-base min-h-[44px] flex items-center justify-center"
             whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0,255,136,0.4)' }}
             whileTap={{ scale: 0.98 }}
             data-cursor-hover
@@ -112,7 +112,7 @@ export default function Hero() {
           </motion.a>
           <motion.a
             href="#projetos"
-            className="px-8 py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors"
+            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             data-cursor-hover
@@ -121,7 +121,7 @@ export default function Hero() {
           </motion.a>
           <motion.a
             href="#contato"
-            className="px-8 py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors"
+            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             data-cursor-hover
@@ -133,7 +133,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}

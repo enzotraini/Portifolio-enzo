@@ -19,14 +19,14 @@ export default function About() {
   const orbY = useTransform(scrollYProgress, [0, 0.5, 1], [50, -30, 50])
 
   return (
-    <section id="sobre" className="relative py-32 px-6 md:px-12 lg:px-24 overflow-hidden" ref={ref}>
+    <section id="sobre" className="relative py-20 sm:py-24 md:py-32 px-5 sm:px-6 md:px-12 lg:px-24 overflow-hidden" ref={ref}>
       <motion.div
         style={{ y: orbY }}
         className="absolute -right-40 top-1/2 w-96 h-96 rounded-full bg-cyan-500/5 blur-[100px] pointer-events-none"
       />
       <div className="relative max-w-4xl mx-auto">
         <motion.h2
-          className="text-4xl md:text-5xl font-display font-bold mb-16"
+          className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-12 md:mb-16"
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
@@ -35,7 +35,7 @@ export default function About() {
         </motion.h2>
 
         <motion.div
-          className="space-y-6 text-lg text-[var(--color-muted)] leading-relaxed"
+          className="space-y-6 text-base sm:text-lg text-[var(--color-muted)] leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
