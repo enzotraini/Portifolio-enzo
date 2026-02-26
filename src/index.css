@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --color-void: #0a0a0b;
+  --color-surface: #121214;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-accent: #00ff88;
+  --color-accent-dim: rgba(0, 255, 136, 0.15);
+  --color-muted: rgba(255, 255, 255, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-[var(--color-border)];
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-[var(--color-void)] text-white antialiased overflow-x-hidden;
+    font-family: var(--font-body);
+  }
+  @media (pointer: fine) {
+    body {
+      cursor: none;
+    }
+    a, button, [data-cursor-hover] {
+      cursor: none;
+    }
+  }
+}
