@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const links = [
   { href: '#sobre', label: 'Sobre' },
+  { href: '#emt', label: 'EMT' },
   { href: '#projetos', label: 'Projetos' },
   { href: '#porque-contratar', label: 'Por que contratar' },
   { href: '#contato', label: 'Contato' },

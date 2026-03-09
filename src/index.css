@@ -26,6 +26,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100dvh;
+    background-color: #0a0a0b;
   }
   #root {
     min-height: 100vh;

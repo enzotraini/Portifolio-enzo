@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
@@ -38,15 +39,29 @@ const benefits = [
 
 export default function WhyHireMe() {
   const ref = useRef(null)
+  const [isMobile, setIsMobile] = useState(true)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   return (
     <section id="porque-contratar" className="relative py-20 sm:py-24 md:py-32 overflow-hidden" ref={ref}>
-      {/* Background */}
+      {/* Background - simplificado no mobile */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-surface)] to-[var(--color-void)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(0,255,136,0.06),transparent_70%)]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[var(--color-accent)]/5 blur-[150px] rounded-full" />
+        {isMobile ? (
+          <div className="absolute inset-0 bg-[var(--color-surface)]" />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-surface)] to-[var(--color-void)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(0,255,136,0.06),transparent_70%)]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[var(--color-accent)]/5 blur-[150px] rounded-full" />
+          </>
+        )}
       </div>
 
       <div className="relative px-5 sm:px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
@@ -85,23 +100,20 @@ export default function WhyHireMe() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p>
-            Eu desenvolvo sistemas, aplicações e sites com foco em{' '}
-            <span className="text-white">estrutura</span>,{' '}
-            <span className="text-white">segurança</span> e{' '}
-            <span className="text-white">escalabilidade</span>. Cada projeto é pensado
-            para resolver problemas reais, otimizar processos e sustentar o crescimento
-            da empresa no longo prazo.
+            Desenvolvo <span className="text-white">sites</span>,{' '}
+            <span className="text-white">sistemas web</span> e{' '}
+            <span className="text-white">aplicativos</span> pensados para resolver
+            problemas reais e otimizar o dia a dia da sua empresa. Cada projeto é
+            feito para durar e crescer junto com você.
           </p>
           <p>
-            Meu diferencial não está apenas nas tecnologias que utilizo, mas na forma
-            como conduzo o projeto: com organização, clareza e responsabilidade técnica.
-            Cada decisão é tomada considerando impacto operacional, financeiro e
-            estratégico.
+            Meu diferencial está na forma como conduzo o projeto: organização, clareza
+            e compromisso com o resultado. Cada decisão considera o impacto no seu
+            negócio — operacional, financeiro e estratégico.
           </p>
           <p>
-            Tenho experiência prática lidando com empresas e demandas reais, o que me
-            permite ir além da execução técnica — atuo como alguém que constrói
-            soluções pensadas para gerar resultado.
+            Tenho experiência prática com empresas reais. Não é só sobre entregar um
+            site ou sistema — é sobre construir algo que gere resultado para você.
           </p>
         </motion.div>
 
