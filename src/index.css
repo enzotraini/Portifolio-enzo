@@ -17,11 +17,20 @@
   }
   html {
     scroll-behavior: smooth;
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-[var(--color-void)] text-white antialiased overflow-x-hidden;
     font-family: var(--font-body);
     padding-bottom: env(safe-area-inset-bottom);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  #root {
+    min-height: 100vh;
+    min-height: 100dvh;
+    isolation: isolate;
   }
   @media (pointer: fine) {
     body {

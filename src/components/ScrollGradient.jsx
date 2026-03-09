@@ -1,12 +1,21 @@
+import { useState, useEffect } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 
 export default function ScrollGradient() {
+  const [isMobile, setIsMobile] = useState(true)
   const { scrollYProgress } = useScroll()
-
-  // Gradiente que desloca e intensifica conforme o scroll
   const gradientY = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], ['0%', '25%', '55%', '90%'])
   const gradientOpacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.5, 0.7, 0.35, 0.55, 0.25])
   const accentIntensity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0.2, 0.3, 0.15, 0.25, 0.1])
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  if (isMobile) return null
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[1]">

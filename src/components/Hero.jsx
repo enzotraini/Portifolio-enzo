@@ -1,27 +1,40 @@
+import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Particles from './Particles'
 
-const words = ['Olá,', 'sou', 'Enzo.']
-const subtitle = 'Full Stack Developer · Sistemas web, aplicações e sites de alta performance'
+const words = ['Prazer,', 'sou', 'o', 'Enzo.']
+const subtitle = 'Full Stack Developer · Sistemas web, aplicações e sites de alta performance. TypeScript, React, SQL, AWS.'
 
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(true)
   const { scrollY } = useScroll()
 
-  // Parallax: elementos de fundo se movem mais devagar que o scroll
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   const backgroundY = useTransform(scrollY, [0, 600], [0, 200])
   const orbsY = useTransform(scrollY, [0, 600], [0, 120])
   const particlesY = useTransform(scrollY, [0, 600], [0, 80])
   const gradientOpacity = useTransform(scrollY, [0, 400, 800], [1, 0.5, 0])
 
+  const parallaxStyle = isMobile ? {} : { y: particlesY }
+  const orbsStyle = isMobile ? {} : { y: orbsY }
+  const bgStyle = isMobile ? {} : { y: backgroundY, opacity: gradientOpacity }
+  const gradient2Style = isMobile ? {} : { opacity: gradientOpacity }
+
   return (
-    <section className="min-h-screen flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden min-h-[100dvh]">
-      {/* Background com parallax */}
+    <section className="min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div style={{ y: particlesY }} className="absolute inset-0">
+        <motion.div style={parallaxStyle} className="absolute inset-0">
           <Particles />
         </motion.div>
         <motion.div
-          style={{ y: orbsY }}
+          style={orbsStyle}
           className="absolute w-[600px] h-[600px] rounded-full bg-[var(--color-accent)]/10 blur-[120px] -top-1/2 -left-1/2"
           animate={{
             x: [0, 100, 0],
@@ -30,7 +43,7 @@ export default function Hero() {
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          style={{ y: orbsY }}
+          style={orbsStyle}
           className="absolute w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[100px] top-1/2 right-0"
           animate={{
             x: [0, -80, 0],
@@ -39,11 +52,11 @@ export default function Hero() {
           transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          style={{ y: backgroundY, opacity: gradientOpacity }}
+          style={bgStyle}
           className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,255,136,0.12),transparent_60%)]"
         />
         <motion.div
-          style={{ opacity: gradientOpacity }}
+          style={gradient2Style}
           className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_80%_80%,rgba(34,211,238,0.08),transparent_50%)]"
         />
       </div>
@@ -133,7 +146,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
