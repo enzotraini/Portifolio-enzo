@@ -11,7 +11,7 @@ function App() {
       <CustomCursor />
       <ScrollGradient />
       <Navbar />
-      <main className="relative z-10">
+      <main className="relative z-10 w-full max-w-[100vw] overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/emt" element={<EMTPage />} />

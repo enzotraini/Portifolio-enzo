@@ -3,15 +3,15 @@ import { motion } from 'framer-motion'
 
 export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(false)
-  useEffect(() => {
-    setIsTouch(!window.matchMedia('(pointer: fine)').matches)
-  }, [])
-
-  if (isTouch) return null
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
+    setIsTouch(!window.matchMedia('(pointer: fine)').matches)
+  }, [])
+
+  useEffect(() => {
+    if (isTouch) return () => {}
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
@@ -20,19 +20,22 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsHovering(false)
 
     document.addEventListener('mousemove', handleMouseMove)
-    document.querySelectorAll('a, button, [data-cursor-hover]').forEach((el) => {
+    const els = document.querySelectorAll('a, button, [data-cursor-hover]')
+    els.forEach((el) => {
       el.addEventListener('mouseenter', handleMouseEnter)
       el.addEventListener('mouseleave', handleMouseLeave)
     })
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      document.querySelectorAll('a, button, [data-cursor-hover]').forEach((el) => {
+      els.forEach((el) => {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)
       })
     }
-  }, [])
+  }, [isTouch])
+
+  if (isTouch) return null
 
   return (
     <>
