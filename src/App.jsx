@@ -1,13 +1,9 @@
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import EMT from './components/EMT'
-import Projects from './components/Projects'
-import WhyHireMe from './components/WhyHireMe'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
 import ScrollGradient from './components/ScrollGradient'
+import Home from './pages/Home'
+import EMTPage from './pages/EMTPage'
 
 function App() {
   return (
@@ -16,13 +12,10 @@ function App() {
       <ScrollGradient />
       <Navbar />
       <main className="relative z-10">
-        <Hero />
-        <About />
-        <EMT />
-        <Projects />
-        <WhyHireMe />
-        <Contact />
-        <Footer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/emt" element={<EMTPage />} />
+        </Routes>
       </main>
     </>
   )

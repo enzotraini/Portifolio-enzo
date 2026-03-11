@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const links = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#emt', label: 'EMT' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#porque-contratar', label: 'Por que contratar' },
-  { href: '#contato', label: 'Contato' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#projetos', label: 'Projetos' },
+  { href: '/#depoimentos', label: 'Depoimentos' },
+  { href: '/#porque-contratar', label: 'Por que contratar' },
+  { href: '/#contato', label: 'Contato' },
+  { href: '/emt', label: 'EMT', isEmt: true },
 ]
 
 export default function Navbar() {
@@ -30,7 +31,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <nav className="flex items-center justify-between px-5 sm:px-6 md:px-12 lg:px-24 py-4 sm:py-6">
-          <a href="#" className="font-display font-bold text-xl">
+          <a href="/" className="font-display font-bold text-xl">
             EMT
           </a>
 
@@ -39,7 +40,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[var(--color-muted)] hover:text-white transition-colors relative group"
+                className={`text-[var(--color-muted)] hover:text-white transition-colors relative group ${link.isEmt ? 'text-[var(--color-accent)]/80' : ''}`}
                 data-cursor-hover
               >
                 {link.label}
@@ -91,7 +92,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  className="text-2xl font-display"
+                  className={`text-2xl font-display ${link.isEmt ? 'text-[var(--color-accent)]' : ''}`}
                   onClick={() => setMobileOpen(false)}
                   whileTap={{ scale: 0.95 }}
                 >

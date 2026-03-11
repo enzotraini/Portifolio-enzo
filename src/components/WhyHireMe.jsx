@@ -171,7 +171,7 @@ export default function WhyHireMe() {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <motion.a
-            href="#contato"
+            href="/#contato"
             className="inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-base sm:text-lg min-h-[44px]"
             whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(0,255,136,0.5)' }}
             whileTap={{ scale: 0.98 }}

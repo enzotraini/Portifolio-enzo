@@ -56,7 +56,8 @@ export default function About() {
           <p>
             Atuo na <span className="text-white">EMT Informática</span>, onde trabalho
             com empresas de diversos segmentos. Cada projeto é uma oportunidade de
-            transformar ideias em ferramentas que fazem a diferença no dia a dia do negócio.
+            transformar ideias em ferramentas que fazem a diferença no dia a dia do negócio.{' '}
+            <a href="/emt" className="text-[var(--color-accent)] hover:underline">Saiba mais sobre a EMT</a>.
           </p>
         </motion.div>
 

@@ -14,15 +14,24 @@ export default function Footer() {
         >
           © {year} EMT Informática. Feito com paixão.
         </motion.p>
-        <a
-          href="https://github.com/enzotraini"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm"
-          data-cursor-hover
-        >
-          GitHub
-        </a>
+        <div className="flex gap-6">
+          <a
+            href="/emt"
+            className="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm"
+            data-cursor-hover
+          >
+            EMT
+          </a>
+          <a
+            href="https://github.com/enzotraini"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-sm"
+            data-cursor-hover
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </footer>
   )

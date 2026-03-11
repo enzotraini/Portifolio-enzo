@@ -108,19 +108,19 @@ export default function Hero() {
           transition={{ delay: isMobile ? 0.2 : 1.2, duration: 0.6 }}
         >
           <a
-            href="#porque-contratar"
+            href="/#porque-contratar"
             className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-sm sm:text-base min-h-[44px] flex items-center justify-center"
           >
             Por que me contratar
           </a>
           <a
-            href="#projetos"
+            href="/#projetos"
             className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
           >
             Ver projetos
           </a>
           <a
-            href="#contato"
+            href="/#contato"
             className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
           >
             Fale comigo
