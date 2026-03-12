@@ -4,13 +4,13 @@ export default function HeroMobile() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,255,136,0.08),transparent_50%)] pointer-events-none" />
       <div className="relative z-10">
         <h1 className="flex flex-wrap gap-x-2 gap-y-0 text-4xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display), system-ui, sans-serif' }}>
-          <span>Prazer,</span>
-          <span>sou</span>
-          <span>o</span>
-          <span className="bg-gradient-to-r from-[#00ff88] to-cyan-400 bg-clip-text text-transparent">Enzo.</span>
+          <span>Sites.</span>
+          <span>Sistemas.</span>
+          <span>Apps.</span>
+          <span className="bg-gradient-to-r from-[#00ff88] to-cyan-400 bg-clip-text text-transparent">Automação.</span>
         </h1>
         <p className="mt-6 text-base text-[rgba(255,255,255,0.5)] max-w-xl">
-          Crio sites, sistemas web e aplicativos que impulsionam seu negócio.
+          Soluções digitais reais para seu negócio — do site institucional ao sistema de gestão financeira e chatbot no WhatsApp.
         </p>
         <div className="mt-12 flex flex-wrap gap-3">
           <a

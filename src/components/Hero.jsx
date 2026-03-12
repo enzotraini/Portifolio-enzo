@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Particles from './Particles'
 
-const words = ['Prazer,', 'sou', 'o', 'Enzo.']
-const subtitle = 'Crio sites, sistemas web e aplicativos que impulsionam seu negócio.'
+const words = ['Sites.', 'Sistemas.', 'Apps.', 'Automação.']
+const subtitle = 'Soluções digitais reais para seu negócio — do site institucional ao sistema de gestão financeira e chatbot no WhatsApp.'
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(true)
@@ -80,7 +80,7 @@ export default function Hero() {
               transition={{ duration: isMobile ? 0.4 : 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="inline-block">
-                {word === 'Enzo.' ? (
+                {word === 'Automação.' ? (
                   <span className="bg-gradient-to-r from-[var(--color-accent)] to-cyan-400 bg-clip-text text-transparent">
                     {word}
                   </span>
