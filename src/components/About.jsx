@@ -37,7 +37,7 @@ export default function About() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Sobre <span className="text-[var(--color-accent)]">mim</span>
+          Sobre <span className="text-[var(--color-accent)]">nós</span>
         </motion.h2>
 
         <motion.div
@@ -47,16 +47,16 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <p>
-            Desenvolvo <span className="text-white">sites</span>,{' '}
+            Desenvolvemos <span className="text-white">sites</span>,{' '}
             <span className="text-white">sistemas web</span> e{' '}
             <span className="text-white">aplicativos</span> que resolvem problemas reais
-            e ajudam empresas a crescer. Meu foco é entender o que você precisa e entregar
+            e ajudam empresas a crescer. Nosso foco é entender o que você precisa e entregar
             uma solução que funcione.
           </p>
           <p>
-            Atuo na <span className="text-white">EMT Informática</span>, onde trabalho
-            com empresas de diversos segmentos. Cada projeto é uma oportunidade de
-            transformar ideias em ferramentas que fazem a diferença no dia a dia do negócio.{' '}
+            A <span className="text-white">EMT Informática</span> atua com empresas de diversos
+            segmentos. Cada projeto é uma oportunidade de transformar ideias em ferramentas
+            que fazem a diferença no dia a dia do negócio.{' '}
             <a href="/emt" className="text-[var(--color-accent)] hover:underline">Saiba mais sobre a EMT</a>.
           </p>
         </motion.div>
@@ -67,7 +67,7 @@ export default function About() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15 }}
         >
-          <h3 className="text-white font-semibold mb-4">O que eu faço:</h3>
+          <h3 className="text-white font-semibold mb-4">O que fazemos:</h3>
           <ul className="space-y-2 text-[var(--color-muted)]">
             {offerings.map((item, i) => (
               <motion.li
@@ -90,7 +90,7 @@ export default function About() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          Meu objetivo é simples: criar soluções que você e sua equipe vão usar todos os dias,
+          Nosso objetivo é simples: criar soluções que você e sua equipe vão usar todos os dias,
           com qualidade e suporte para evoluir junto com seu negócio.
         </motion.p>
       </div>

@@ -24,7 +24,7 @@ export default function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Tem um projeto em mente? Adoraria ouvir. Me envie uma mensagem e vamos
+          Tem um projeto em mente? Adoraríamos ouvir. Nos envie uma mensagem e vamos
           transformar sua ideia em realidade.
         </motion.p>
 

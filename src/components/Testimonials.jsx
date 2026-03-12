@@ -36,7 +36,7 @@ export default function Testimonials() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          O que dizem <span className="text-[var(--color-accent)]">sobre mim</span>
+          O que dizem <span className="text-[var(--color-accent)]">sobre nós</span>
         </motion.h2>
         <motion.p
           className="text-center text-[var(--color-muted)] mb-16 max-w-2xl mx-auto"

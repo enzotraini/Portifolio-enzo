@@ -136,7 +136,7 @@ export default function Projects() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Projetos <span className="text-[var(--color-accent)]">recentes</span>
+          Nossos <span className="text-[var(--color-accent)]">projetos</span>
         </motion.h2>
 
         <motion.div

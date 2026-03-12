@@ -17,7 +17,7 @@ export default function HeroMobile() {
             href="/#porque-contratar"
             className="px-6 py-3.5 rounded-full bg-[#00ff88] text-[#0a0a0b] font-semibold text-sm min-h-[44px] flex items-center justify-center"
           >
-            Por que me contratar
+            Por que nos escolher
           </a>
           <a
             href="/#projetos"
@@ -29,7 +29,7 @@ export default function HeroMobile() {
             href="/#contato"
             className="px-6 py-3.5 rounded-full border border-white/20 text-sm min-h-[44px] flex items-center justify-center"
           >
-            Fale comigo
+            Fale conosco
           </a>
         </div>
       </div>

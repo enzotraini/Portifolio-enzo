@@ -5,9 +5,10 @@ const links = [
   { href: '/#sobre', label: 'Sobre' },
   { href: '/#projetos', label: 'Projetos' },
   { href: '/#depoimentos', label: 'Depoimentos' },
-  { href: '/#porque-contratar', label: 'Por que contratar' },
+  { href: '/#porque-contratar', label: 'Por que nos escolher' },
   { href: '/#contato', label: 'Contato' },
   { href: '/emt', label: 'EMT', isEmt: true },
+  { href: '/emt#suporte', label: 'Nosso suporte', isSuporte: true },
 ]
 
 export default function Navbar() {
@@ -40,7 +41,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-[var(--color-muted)] hover:text-white transition-colors relative group ${link.isEmt ? 'text-[var(--color-accent)]/80' : ''}`}
+                className={`text-[var(--color-muted)] hover:text-white transition-colors relative group ${link.isEmt || link.isSuporte ? 'text-[var(--color-accent)]/80' : ''}`}
                 data-cursor-hover
               >
                 {link.label}
@@ -92,7 +93,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  className={`text-2xl font-display ${link.isEmt ? 'text-[var(--color-accent)]' : ''}`}
+                  className={`text-2xl font-display ${link.isEmt || link.isSuporte ? 'text-[var(--color-accent)]' : ''}`}
                   onClick={() => setMobileOpen(false)}
                   whileTap={{ scale: 0.95 }}
                 >

@@ -71,7 +71,7 @@ export default function WhyHireMe() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          Por que me <span className="text-[var(--color-accent)]">contratar</span>?
+          Por que nos <span className="text-[var(--color-accent)]">escolher</span>?
         </motion.h2>
 
         {/* Hook - destaque visual */}
@@ -87,7 +87,7 @@ export default function WhyHireMe() {
               Porque você não precisa apenas de alguém que escreva código.
             </p>
             <p className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl font-display font-semibold text-[var(--color-accent)] leading-relaxed">
-              Você precisa de alguém que entenda o seu negócio.
+              Você precisa de uma equipe que entenda o seu negócio.
             </p>
           </div>
         </motion.div>
@@ -100,19 +100,19 @@ export default function WhyHireMe() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p>
-            Desenvolvo <span className="text-white">sites</span>,{' '}
+            Desenvolvemos <span className="text-white">sites</span>,{' '}
             <span className="text-white">sistemas web</span> e{' '}
             <span className="text-white">aplicativos</span> pensados para resolver
             problemas reais e otimizar o dia a dia da sua empresa. Cada projeto é
             feito para durar e crescer junto com você.
           </p>
           <p>
-            Meu diferencial está na forma como conduzo o projeto: organização, clareza
+            Nosso diferencial está na forma como conduzimos o projeto: organização, clareza
             e compromisso com o resultado. Cada decisão considera o impacto no seu
             negócio — operacional, financeiro e estratégico.
           </p>
           <p>
-            Tenho experiência prática com empresas reais. Não é só sobre entregar um
+            Temos experiência prática com empresas reais. Não é só sobre entregar um
             site ou sistema — é sobre construir algo que gere resultado para você.
           </p>
         </motion.div>
@@ -154,7 +154,7 @@ export default function WhyHireMe() {
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <p className="text-lg text-[var(--color-muted)] leading-relaxed">
-            Trabalho com uma estrutura enxuta e eficiente, o que permite oferecer um
+            Trabalhamos com uma estrutura enxuta e eficiente, o que permite oferecer um
             investimento justo, focado no que realmente importa:{' '}
             <span className="text-white font-medium">
               execução sólida, suporte e consistência
