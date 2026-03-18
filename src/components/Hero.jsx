@@ -125,6 +125,16 @@ export default function Hero() {
           >
             Fale conosco
           </a>
+          <a
+            href="/suporte-emt.zip"
+            download="AnyDesk-Suporte-EMT.zip"
+            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-white/10 border border-white/30 hover:bg-white/20 text-white font-semibold text-sm sm:text-base min-h-[44px] flex items-center justify-center gap-2 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Instalar suporte
+          </a>
         </motion.div>
       </div>
 

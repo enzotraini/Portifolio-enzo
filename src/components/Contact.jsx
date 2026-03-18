@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { getWhatsAppUrl } from './WhatsAppButton'
+import { getWhatsAppUrl } from '../utils/whatsapp'
 
 export default function Contact() {
   const ref = useRef(null)
