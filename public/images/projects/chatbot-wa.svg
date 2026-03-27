@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" rx="16" fill="#f0fdf4"/>
+  <rect x="220" y="60" width="360" height="380" rx="24" fill="#fff" stroke="#86efac" stroke-width="2"/>
+  <rect x="248" y="96" width="304" height="48" rx="12" fill="#25D366" opacity="0.15"/>
+  <rect x="264" y="168" width="220" height="36" rx="18" fill="#dcfce7"/>
+  <rect x="316" y="224" width="220" height="36" rx="18" fill="#bbf7d0"/>
+  <rect x="264" y="280" width="180" height="36" rx="18" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="40" y="470" font-family="system-ui,sans-serif" font-size="14" fill="#64748b">Preview · Chatbot WhatsApp</text>
+</svg>

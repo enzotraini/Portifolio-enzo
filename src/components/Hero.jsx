@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import Particles from './Particles'
-
-const words = ['Sites.', 'Sistemas.', 'Apps.', 'Automação.']
-const subtitle = 'Soluções digitais reais para seu negócio — do site institucional ao sistema de gestão financeira e chatbot no WhatsApp.'
+import { motion, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { getWhatsAppUrl } from '../utils/whatsapp'
+import { heroCarouselSlides } from '../data/heroShowcase'
+import HeroClientMarquee from './HeroClientMarquee'
+import HeroScreensCarousel from './HeroScreensCarousel'
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(true)
-  const { scrollY } = useScroll()
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -16,145 +17,91 @@ export default function Hero() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const backgroundY = useTransform(scrollY, [0, 600], [0, 200])
-  const orbsY = useTransform(scrollY, [0, 600], [0, 120])
-  const particlesY = useTransform(scrollY, [0, 600], [0, 80])
-  const gradientOpacity = useTransform(scrollY, [0, 400, 800], [1, 0.5, 0])
+  if (isMobile) return null
 
-  const parallaxStyle = isMobile ? {} : { y: particlesY }
-  const orbsStyle = isMobile ? {} : { y: orbsY }
-  const bgStyle = isMobile ? {} : { y: backgroundY, opacity: gradientOpacity }
-  const gradient2Style = isMobile ? {} : { opacity: gradientOpacity }
+  const waHref = getWhatsAppUrl('Olá! Gostaria de conversar sobre um projeto para minha empresa.')
 
   return (
-    <section className="min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 sm:px-6 md:px-12 lg:px-24 relative overflow-hidden">
-      {/* Background - simplificado no mobile */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {!isMobile && (
-          <>
-            <motion.div style={parallaxStyle} className="absolute inset-0">
-              <Particles />
-            </motion.div>
-            <motion.div
-              style={orbsStyle}
-              className="absolute w-[600px] h-[600px] rounded-full bg-[var(--color-accent)]/10 blur-[120px] -top-1/2 -left-1/2"
-              animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-              style={orbsStyle}
-              className="absolute w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[100px] top-1/2 right-0"
-              animate={{ x: [0, -80, 0], y: [0, -30, 0] }}
-              transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-              style={bgStyle}
-              className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,255,136,0.12),transparent_60%)]"
-            />
-            <motion.div
-              style={gradient2Style}
-              className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_80%_80%,rgba(34,211,238,0.08),transparent_50%)]"
-            />
-          </>
-        )}
-        {isMobile && (
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,255,136,0.08),transparent_50%)]" />
-        )}
+    <section className="relative flex min-h-[min(100dvh,1100px)] flex-col overflow-x-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] via-[42%] to-[#120a8f]">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-1/2 h-[min(75vw,560px)] w-[min(130vw,880px)] -translate-x-1/2 rounded-full bg-indigo-400/15 blur-[100px]" />
+        <div className="absolute top-1/4 right-0 h-72 w-72 rounded-full bg-blue-400/10 blur-[90px]" />
+        <div className="absolute bottom-1/3 left-0 h-64 w-64 rounded-full bg-white/10 blur-[70px]" />
       </div>
 
-      <div className="relative z-10">
-        <motion.div
-          className="flex flex-wrap gap-x-3 gap-y-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold tracking-tight"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { transition: { staggerChildren: 0.08, delayChildren: isMobile ? 0.1 : 0.3 } },
-            hidden: {},
-          }}
-        >
-          {words.map((word, i) => (
-            <motion.span
-              key={i}
-              className="inline-block overflow-hidden"
-              variants={{ hidden: { y: '100%' }, visible: { y: 0 } }}
-              transition={{ duration: isMobile ? 0.4 : 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <span className="inline-block">
-                {word === 'Automação.' ? (
-                  <span className="bg-gradient-to-r from-[var(--color-accent)] to-cyan-400 bg-clip-text text-transparent">
-                    {word}
-                  </span>
-                ) : (
-                  word
-                )}
-              </span>
-            </motion.span>
-          ))}
-        </motion.div>
+      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 sm:px-8 md:px-12 lg:px-24 pt-32 pb-10 md:pb-14">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.p
+            className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-sky-300/95"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+          >
+            Sites · Sistemas · Apps · Automação
+          </motion.p>
+          <motion.h1
+            className="text-4xl font-display font-bold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl"
+            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+          >
+            Tecnologia que organiza seu negócio e escala com segurança
+          </motion.h1>
+          <motion.p
+            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Da presença digital ao sistema no navegador — entregamos com clareza, prazo e suporte depois do go-live.
+          </motion.p>
 
-        <motion.p
-          className="mt-6 text-base sm:text-lg md:text-xl text-[var(--color-muted)] max-w-xl font-body"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: isMobile ? 0.1 : 1, duration: 0.6 }}
-        >
-          {subtitle}
-        </motion.p>
-
-        <motion.div
-          className="mt-12 flex flex-wrap gap-3 sm:gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: isMobile ? 0.2 : 1.2, duration: 0.6 }}
-        >
-          <a
-            href="/#porque-contratar"
-            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] font-semibold text-sm sm:text-base min-h-[44px] flex items-center justify-center"
-          >
-            Por que nos escolher
-          </a>
-          <a
-            href="/#projetos"
-            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
-          >
-            Ver projetos
-          </a>
-          <a
-            href="/#contato"
-            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full border border-white/20 hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-accent-dim)] transition-colors text-sm sm:text-base min-h-[44px] flex items-center justify-center"
-          >
-            Fale conosco
-          </a>
-          <a
-            href="/suporte-emt.zip"
-            download="AnyDesk-Suporte-EMT.zip"
-            className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-full bg-white/10 border border-white/30 hover:bg-white/20 text-white font-semibold text-sm sm:text-base min-h-[44px] flex items-center justify-center gap-2 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            Instalar suporte
-          </a>
-        </motion.div>
-      </div>
-
-      {/* Scroll indicator - só no desktop */}
-      {!isMobile && (
-        <motion.div
-          className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8 }}
-        >
           <motion.div
-            className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#2563eb] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition-colors hover:bg-blue-500"
+            >
+              Falar no WhatsApp
+            </a>
+            <Link
+              to="/projetos"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
+            >
+              Ver mostruário
+            </Link>
+            <a
+              href="/suporte-emt.zip"
+              download="AnyDesk-Suporte-EMT.zip"
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-blue-200/75 transition-colors hover:text-white"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Suporte remoto
+            </a>
           </motion.div>
-        </motion.div>
-      )}
+        </div>
+
+        <div className="mx-auto mt-14 w-full max-w-5xl md:mt-20">
+          <HeroClientMarquee lightText />
+        </div>
+      </div>
+
+      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] pb-10 pt-8 md:pb-14 md:pt-10">
+        <p className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-3">
+          Algumas das nossas entregas
+        </p>
+        <div className="relative z-20 -mt-[clamp(0.65rem,2vw,1.65rem)] md:-mt-[clamp(0.9rem,2.6vw,2.85rem)]">
+          <HeroScreensCarousel slides={heroCarouselSlides} reduceMotion={reduceMotion} variant="heroOverlap" />
+        </div>
+      </div>
     </section>
   )
 }

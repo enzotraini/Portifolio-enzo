@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
-  --color-void: #0a0a0b;
-  --color-surface: #121214;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-accent: #00ff88;
-  --color-accent-dim: rgba(0, 255, 136, 0.15);
-  --color-muted: rgba(255, 255, 255, 0.5);
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --color-void: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-primary: #1d4ed8;
+  --color-primary-hover: #1e40af;
+  --color-navy: #0f172a;
+  --color-navy-deep: #020617;
+  --color-accent: #059669;
+  --color-accent-dim: rgba(5, 150, 105, 0.12);
+  --color-muted: #64748b;
+  --color-foreground: #0f172a;
 }
 
 @layer base {
@@ -22,14 +28,18 @@
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
   body {
-    @apply bg-[var(--color-void)] text-white antialiased overflow-x-hidden;
+    @apply antialiased overflow-x-hidden text-[var(--color-foreground)] bg-[var(--color-void)];
     font-family: var(--font-body);
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     min-height: 100svh;
     min-height: -webkit-fill-available;
-    background-color: #0a0a0b;
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
@@ -44,12 +54,31 @@
     max-width: 100vw;
     overflow-x: hidden;
   }
-  @media (pointer: fine) {
-    body {
-      cursor: none;
-    }
-    a, button, [data-cursor-hover] {
-      cursor: none;
-    }
+}
+
+/* Hero: ticker de logos (marquee infinito) */
+@keyframes hero-marquee {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: hero-marquee 50s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-marquee-track {
+    animation: none;
+  }
+}
+
+.hero-marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }

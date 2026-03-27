@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" rx="16" fill="#fdf2f8"/>
+  <rect x="24" y="24" width="752" height="40" rx="8" fill="#fce7f3"/>
+  <path d="M120 280 L200 200 L320 260 L440 180 L560 240 L680 200" stroke="#db2777" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="200" cy="200" r="10" fill="#1d4ed8"/>
+  <circle cx="320" cy="260" r="10" fill="#059669"/>
+  <circle cx="440" cy="180" r="10" fill="#db2777"/>
+  <rect x="80" y="320" width="640" height="120" rx="12" fill="#fff" stroke="#fbcfe8"/>
+  <text x="40" y="470" font-family="system-ui,sans-serif" font-size="14" fill="#64748b">Preview · Automação de processos</text>
+</svg>
