@@ -12,8 +12,8 @@ const featured = {
   tags: ['Sistema web', 'Financeiro', 'Dashboard'],
   image: '/images/projects/showcase-dashboard.png',
   imageAlt: 'BLACKCAR: dashboard com métricas e gráficos',
-  imageSecondary: '/images/projects/showcase-login.png',
-  imageSecondaryAlt: 'BLACKCAR: experiência de login',
+  imageSecondary: '/images/projects/a_full_screen_web_application_dashboard_interface.png',
+  imageSecondaryAlt: 'BLACKCAR: visão expandida do sistema',
 }
 
 const sites = [
