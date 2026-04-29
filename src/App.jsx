@@ -4,6 +4,7 @@ import ScrollGradient from './components/ScrollGradient'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import ProjectsPage from './pages/ProjectsPage'
+import SystemPage from './pages/SystemPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projetos" element={<ProjectsPage />} />
+          <Route path="/sistema-gestao" element={<SystemPage />} />
         </Routes>
       </main>
     </>

@@ -5,6 +5,7 @@ import { getWhatsAppUrl } from '../utils/whatsapp'
 
 const links = [
   { href: '/#solucoes', label: 'Soluções' },
+  { to: '/sistema-gestao', label: 'Sistema EMT' },
   { to: '/projetos', label: 'Projetos' },
   { href: '/#sobre', label: 'Sobre' },
   { href: '/#depoimentos', label: 'Depoimentos' },
