@@ -29,10 +29,10 @@ export default function Hero() {
         <div className="absolute bottom-1/3 left-0 h-64 w-64 rounded-full bg-white/10 blur-[70px]" />
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 sm:px-8 md:px-12 lg:px-24 pt-32 pb-10 md:pb-14">
+      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 sm:px-8 md:px-12 lg:px-24 pt-32 pb-12 md:pb-16">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-sky-300/95"
+            className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-300/95"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
@@ -48,7 +48,7 @@ export default function Hero() {
             Tecnologia que organiza seu negócio e escala com segurança
           </motion.h1>
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg"
+            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -57,7 +57,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+            className="mt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
@@ -76,29 +76,19 @@ export default function Hero() {
             >
               Ver mostruário
             </Link>
-            <a
-              href="/suporte-emt.zip"
-              download="AnyDesk-Suporte-EMT.zip"
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-blue-200/75 transition-colors hover:text-white"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Suporte remoto
-            </a>
           </motion.div>
         </div>
 
-        <div className="mx-auto mt-14 w-full max-w-5xl md:mt-20">
+        <div className="mx-auto mt-16 w-full max-w-5xl md:mt-24">
           <HeroClientMarquee lightText />
         </div>
       </div>
 
-      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] pb-10 pt-8 md:pb-14 md:pt-10">
-        <p className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-3">
+      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] pb-10 pt-12 md:pb-14 md:pt-16">
+        <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-5">
           Algumas das nossas entregas
         </p>
-        <div className="relative z-20 -mt-[clamp(0.65rem,2vw,1.65rem)] md:-mt-[clamp(0.9rem,2.6vw,2.85rem)]">
+        <div className="relative z-20 mt-4 md:mt-6">
           <HeroScreensCarousel slides={heroCarouselSlides} reduceMotion={reduceMotion} variant="heroOverlap" />
         </div>
       </div>

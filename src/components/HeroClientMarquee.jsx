@@ -6,7 +6,7 @@ export default function HeroClientMarquee({ lightText = true }) {
   return (
     <div className="w-full max-w-5xl mx-auto">
       <p
-        className={`text-center text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] mb-6 ${
+        className={`text-center text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] mb-8 ${
           lightText ? 'text-slate-400' : 'text-[var(--color-muted)]'
         }`}
       >

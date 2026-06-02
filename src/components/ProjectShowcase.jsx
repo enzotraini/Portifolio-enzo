@@ -4,73 +4,46 @@ import { motion, useInView } from 'framer-motion'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
 /** Troque `image` / `imageSecondary` pelos arquivos em public/images/projects/ quando tiver as artes finais. */
-const featured = {
-  title: 'BLACKCAR Finance Hub',
-  subtitle: 'Sistema · locação e financeiro',
-  description:
-    'Painel completo com KPIs, receita, frota e fluxo de login — exemplo de produto em uso no dia a dia do cliente.',
-  tags: ['Sistema web', 'Financeiro', 'Dashboard'],
-  image: '/images/projects/showcase-dashboard.png',
-  imageAlt: 'BLACKCAR: dashboard com métricas e gráficos',
-  imageSecondary: '/images/projects/a_full_screen_web_application_dashboard_interface.png',
-  imageSecondaryAlt: 'BLACKCAR: visão expandida do sistema',
-}
+const featured = [
+  {
+    title: 'EMT',
+    subtitle: 'Entrega em destaque · produto digital',
+    description:
+      'Linha principal de entregas da EMT: experiência web consistente, foco em conversão e operação — referência do padrão que aplicamos nos projetos.',
+    tags: ['EMT', 'Web', 'Produto'],
+    image: '/images/projects/wide_screenshot_of_a_clean_saas_erp_style_dashboar.png',
+    imageAlt: 'EMT — referência de interface e produto digital',
+  },
+  {
+    title: 'BLACKCAR Finance Hub',
+    subtitle: 'Sistema · locação e financeiro',
+    description:
+      'Painel completo com KPIs, receita, frota e fluxo de login — exemplo de produto em uso no dia a dia do cliente.',
+    tags: ['Sistema web', 'Financeiro', 'Dashboard'],
+    image: '/images/projects/showcase-dashboard.png',
+    imageAlt: 'BLACKCAR: dashboard com métricas e gráficos',
+    imageSecondary: '/images/projects/a_full_screen_web_application_dashboard_interface.png',
+    imageSecondaryAlt: 'BLACKCAR: visão expandida do sistema',
+  },
+]
 
 const sites = [
   {
-    title: 'Food Light',
-    description: 'Presença digital para refeições coletivas e operações B2B.',
-    tags: ['Site', 'Alimentação'],
+    title: 'Foodlight',
+    description: 'Site institucional e presença digital para a operação Foodlight.',
+    tags: ['Site', 'Foodlight'],
     image: '/images/projects/food-light.svg',
-    imageAlt: 'Mostruário — projeto Food Light',
-  },
-  {
-    title: 'Raio Comercial',
-    description: 'Institucional para distribuidora industrial com foco em credibilidade.',
-    tags: ['Site', 'Indústria'],
-    image: '/images/projects/raio-comercial.svg',
-    imageAlt: 'Mostruário — Raio Comercial',
-  },
-  {
-    title: 'EMT Sites',
-    description: 'Landing com planos e conversão para serviços digitais.',
-    tags: ['Landing', 'Serviços'],
-    image: '/images/projects/emt-sites.svg',
-    imageAlt: 'Mostruário — EMT Sites',
+    imageAlt: 'Mostruário — Foodlight',
   },
 ]
 
 const systems = [
   {
-    title: 'App Acos Iguatemi',
-    description: 'Aplicativo web orientado à operação e ao cliente final.',
-    tags: ['App', 'Web'],
-    image: '/images/projects/acos-iguatemi.svg',
-    imageAlt: 'Mostruário — Acos Iguatemi',
-  },
-  {
-    title: 'EMT Consultoria',
-    description: 'Institucional com hierarquia clara e foco em contato.',
-    tags: ['Site', 'Institucional'],
-    image: '/images/projects/emt-consultoria.svg',
-    imageAlt: 'Mostruário — EMT Consultoria',
-  },
-]
-
-const automation = [
-  {
-    title: 'Chatbot WhatsApp',
-    description: 'Atendimento, agendamento e qualificação automatizados.',
-    tags: ['Bot', 'WhatsApp'],
-    image: '/images/projects/chatbot-wa.svg',
-    imageAlt: 'Mostruário — automação WhatsApp',
-  },
-  {
-    title: 'Automação de processos',
-    description: 'Integrações entre planilhas, e-mail e sistemas internos.',
-    tags: ['Automação', 'Integração'],
-    image: '/images/projects/automacao.svg',
-    imageAlt: 'Mostruário — automação de processos',
+    title: 'MMET — web app',
+    description: 'Aplicativo web para operação e gestão no ecossistema MMET.',
+    tags: ['Web app', 'MMET'],
+    image: '/images/projects/a_clean_high_resolution_screenshot_of_a_web_appli.png',
+    imageAlt: 'MMET — aplicativo web',
   },
 ]
 
@@ -190,7 +163,7 @@ export default function ProjectShowcase() {
         </motion.div>
 
         {/* Destaque */}
-        <div className="mb-16 sm:mb-24">
+        <div className="mb-16 sm:mb-24 space-y-10 sm:space-y-14">
           <motion.p
             className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-4"
             initial={{ opacity: 0 }}
@@ -199,12 +172,37 @@ export default function ProjectShowcase() {
           >
             Destaque
           </motion.p>
-          <ShowcaseCard item={featured} index={0} isInView={isInView} />
+          {featured.map((item, i) => (
+            <ShowcaseCard key={item.title} item={item} index={i} isInView={isInView} />
+          ))}
         </div>
 
-        <Section title="Sites" items={sites} startIndex={1} isInView={isInView} />
-        <Section title="Sistemas e aplicativos" items={systems} startIndex={1 + sites.length} isInView={isInView} />
-        <Section title="Automação" items={automation} startIndex={1 + sites.length + systems.length} isInView={isInView} />
+        <Section title="Sites" items={sites} startIndex={featured.length} isInView={isInView} />
+        <Section
+          title="Sistemas e aplicativos"
+          items={systems}
+          startIndex={featured.length + sites.length}
+          isInView={isInView}
+        />
+
+        <motion.section
+          className="mb-16 sm:mb-20 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-8 sm:px-10 sm:py-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.45 }}
+        >
+          <h2 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-muted)] mb-4">
+            Automações
+          </h2>
+          <p className="text-[var(--color-navy)] font-display font-bold text-xl sm:text-2xl mb-3">
+            Fluxos, integrações e rotinas sob medida
+          </p>
+          <p className="text-[var(--color-muted)] leading-relaxed max-w-prose">
+            Também entregamos automações — de integrações entre ferramentas a fluxos que reduzem trabalho manual. Não
+            há prévia visual pública deste tipo de entrega; em uma conversa explicamos escopo, ferramentas e exemplos
+            de casos sem expor dados de clientes.
+          </p>
+        </motion.section>
 
         <motion.div
           className="mt-20 rounded-3xl bg-[var(--color-navy-deep)] text-white px-8 py-12 sm:px-12 sm:py-14 text-center relative overflow-hidden"

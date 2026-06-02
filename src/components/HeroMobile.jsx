@@ -35,15 +35,15 @@ export default function HeroMobile() {
           </p>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-10">
           <HeroScreensCarouselMobile slides={heroCarouselSlides} reduceMotion={reduceMotion} />
         </div>
 
-        <div className="mt-10">
+        <div className="mt-12">
           <HeroClientMarquee lightText />
         </div>
 
-        <div className="mt-auto flex flex-col gap-3 pt-10">
+        <div className="mt-auto flex flex-col gap-3 pt-12">
           <a
             href={waHref}
             target="_blank"
@@ -58,16 +58,6 @@ export default function HeroMobile() {
           >
             Ver mostruário
           </Link>
-          <a
-            href="/suporte-emt.zip"
-            download="AnyDesk-Suporte-EMT.zip"
-            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full text-sm font-medium text-blue-200/75"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            Baixar suporte remoto
-          </a>
         </div>
       </div>
     </section>

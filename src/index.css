@@ -69,7 +69,7 @@
 .hero-marquee-track {
   display: flex;
   width: max-content;
-  animation: hero-marquee 50s linear infinite;
+  animation: hero-marquee 70s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

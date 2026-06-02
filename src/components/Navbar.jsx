@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
-import { getWhatsAppUrl } from '../utils/whatsapp'
 
 const links = [
   { href: '/#solucoes', label: 'Soluções' },
@@ -12,6 +11,14 @@ const links = [
   { href: '/#faq', label: 'FAQ' },
   { href: '/#contato', label: 'Contato' },
 ]
+
+function navLinkClass(useLightNav) {
+  return `text-sm font-medium transition-colors ${
+    useLightNav
+      ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
+      : 'text-white hover:text-white/85'
+  }`
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -26,7 +33,17 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const waHref = getWhatsAppUrl('Olá! Gostaria de falar com a EMT sobre um projeto.')
+  const supportBtnClass = `inline-flex min-h-[44px] items-center rounded-full border px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
+    useLightNav
+      ? 'border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-surface-muted)]'
+      : 'border-white/40 text-white hover:bg-white/10'
+  }`
+
+  const contactBtnClass = `inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+    useLightNav
+      ? 'border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-surface-muted)]'
+      : 'border-white/40 text-white hover:bg-white/10'
+  }`
 
   return (
     <>
@@ -40,96 +57,75 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-3.5 sm:px-6 md:px-12 md:py-4 lg:px-24">
-          <a
-            href="/"
-            className={`font-display text-xl font-bold transition-colors ${
-              useLightNav ? 'text-[var(--color-navy)]' : 'text-white'
-            }`}
-          >
-            EMT
-          </a>
+        <nav className="relative mx-auto flex max-w-[1600px] items-center justify-between gap-x-4 px-5 py-3.5 sm:px-6 md:px-12 md:py-4 lg:px-24">
+          {/* Esquerda: marca */}
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <a
+              href="/"
+              className={`font-display shrink-0 text-lg font-bold transition-colors sm:text-xl ${
+                useLightNav ? 'text-[var(--color-navy)]' : 'text-white'
+              }`}
+            >
+              EMT
+            </a>
+          </div>
 
-          <div className="hidden items-center gap-8 lg:flex">
+          {/* Centro: âncoras (desktop) */}
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
             {links.map((link) =>
               link.to ? (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`text-sm font-medium transition-colors ${
-                    useLightNav
-                      ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
-                      : 'text-white hover:text-white/85'
-                  }`}
-                >
+                <Link key={link.to} to={link.to} className={navLinkClass(useLightNav)}>
                   {link.label}
                 </Link>
               ) : (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors ${
-                    useLightNav
-                      ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
-                      : 'text-white hover:text-white/85'
-                  }`}
-                >
+                <a key={link.href} href={link.href} className={navLinkClass(useLightNav)}>
                   {link.label}
                 </a>
               ),
             )}
           </div>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              href="/#contato"
-              className={`inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                useLightNav
-                  ? 'border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-surface-muted)]'
-                  : 'border-white/40 text-white hover:bg-white/10'
-              }`}
-            >
-              Contato
-            </a>
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[44px] items-center rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[var(--color-primary-hover)]"
-            >
-              Falar no WhatsApp
-            </a>
-          </div>
-
-          <button
-            type="button"
-            className={`rounded-lg p-2 md:hidden ${useLightNav ? 'text-[var(--color-navy)]' : 'text-white'}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
-            aria-expanded={mobileOpen}
-          >
-            <div className="flex h-5 w-6 flex-col justify-between">
-              <motion.span
-                className="block h-0.5 w-full rounded bg-current"
-                animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              />
-              <motion.span
-                className="block h-0.5 w-full rounded bg-current"
-                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-              />
-              <motion.span
-                className="block h-0.5 w-full rounded bg-current"
-                animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              />
+          {/* Direita: CTAs ou menu */}
+          <div className="flex justify-end">
+            <div className="hidden items-center gap-3 lg:flex">
+              <a href="/#contato" className={contactBtnClass}>
+                Contato
+              </a>
+              <a href="/suporte-emt.zip" download="AnyDesk-Suporte-EMT.zip" className={supportBtnClass}>
+                Suporte
+              </a>
             </div>
-          </button>
+
+            <button
+              type="button"
+              className={`rounded-lg p-2 lg:hidden ${useLightNav ? 'text-[var(--color-navy)]' : 'text-white'}`}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Menu"
+              aria-expanded={mobileOpen}
+            >
+              <div className="flex h-5 w-6 flex-col justify-between">
+                <motion.span
+                  className="block h-0.5 w-full rounded bg-current"
+                  animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                />
+                <motion.span
+                  className="block h-0.5 w-full rounded bg-current"
+                  animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+                />
+                <motion.span
+                  className="block h-0.5 w-full rounded bg-current"
+                  animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                />
+              </div>
+            </button>
+          </div>
         </nav>
       </motion.header>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-white pt-24 md:hidden"
+            className="fixed inset-0 z-40 bg-white pt-24 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -164,13 +160,19 @@ export default function Navbar() {
                 ),
               )}
               <a
-                href={waHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex justify-center rounded-full bg-[var(--color-primary)] px-6 py-3.5 font-semibold text-white"
+                href="/#contato"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] px-6 py-3 font-semibold text-[var(--color-navy)]"
                 onClick={() => setMobileOpen(false)}
               >
-                Falar no WhatsApp
+                Contato
+              </a>
+              <a
+                href="/suporte-emt.zip"
+                download="AnyDesk-Suporte-EMT.zip"
+                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] px-6 py-3 font-semibold text-[var(--color-navy)]"
+                onClick={() => setMobileOpen(false)}
+              >
+                Suporte
               </a>
             </motion.nav>
           </motion.div>

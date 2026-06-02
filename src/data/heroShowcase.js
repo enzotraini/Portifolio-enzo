@@ -8,6 +8,17 @@ export const heroClientLogos = [
   { label: 'Aços Iguatemi' },
   { label: 'BLACKCAR' },
   { label: 'EMT Consultoria' },
+  { label: 'Agropecuária' },
+  { label: 'Multiço' },
+  { label: 'Starkvale' },
+  { label: 'Viação Águia Branca' },
+  { label: 'Viação Salutaris' },
+  { label: 'Viação Cidade Sol' },
+  { label: 'Viação Rota' },
+  { label: 'Viação Jequié Cidade Sol' },
+  { label: 'Viação Brasileiro' },
+  { label: 'Viação Vix' },
+  { label: 'Viação Planeta' },
 ]
 
 /** Telas do carrossel do hero — imagens em public/images/projects/ */
