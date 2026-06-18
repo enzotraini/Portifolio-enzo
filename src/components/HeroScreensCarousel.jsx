@@ -1,92 +1,80 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRotatingIndex } from '../hooks/useHeroCarousel'
+import LaptopFrame from './LaptopFrame'
 
-function ScreenFrame({ slide, className = '', eager = false, ariaHidden = false }) {
+function ScreenImage({ slide, eager = false, ariaHidden = false }) {
   return (
-    <div
-      className={`relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-100 shadow-[0_40px_90px_-28px_rgba(0,0,0,0.7)] ring-1 ring-white/5 ${className}`}
-    >
-      <img
-        src={slide.src}
-        alt={ariaHidden ? '' : slide.alt}
-        aria-hidden={ariaHidden || undefined}
-        className="absolute inset-0 h-full w-full object-cover object-top"
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-        width={1024}
-        height={640}
-      />
-    </div>
+    <img
+      src={slide.src}
+      alt={ariaHidden ? '' : slide.alt}
+      aria-hidden={ariaHidden || undefined}
+      className="absolute inset-0 h-full w-full object-cover object-top"
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+      width={1920}
+      height={960}
+    />
+  )
+}
+
+function ScreenFrame({ slide, className = '', eager = false, ariaHidden = false, compact = false }) {
+  return (
+    <LaptopFrame className={className} compact={compact}>
+      <ScreenImage slide={slide} eager={eager} ariaHidden={ariaHidden} />
+    </LaptopFrame>
   )
 }
 
 function SideSlide({ slide, heroOverlap }) {
   if (heroOverlap) {
-    return <ScreenFrame slide={slide} ariaHidden className="opacity-80" />
+    return <ScreenFrame slide={slide} ariaHidden compact className="opacity-80" />
   }
   return (
-    <div className="relative aspect-[16/10] w-full max-w-[200px] overflow-hidden rounded-xl border border-slate-200/90 bg-slate-900/80 opacity-60 shadow-md transition-opacity duration-500 lg:rounded-2xl lg:opacity-75">
-      <img
-        src={slide.src}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover object-top"
-        loading="lazy"
-        decoding="async"
-        width={400}
-        height={250}
-        aria-hidden
-      />
-    </div>
+    <LaptopFrame compact className="opacity-60 lg:opacity-75">
+      <ScreenImage slide={slide} ariaHidden />
+    </LaptopFrame>
   )
 }
 
 function CenterSlide({ slide, heroOverlap }) {
   if (heroOverlap) {
-    return <ScreenFrame slide={slide} eager className="bg-slate-50" />
+    return <ScreenFrame slide={slide} eager />
   }
   return (
-    <div className="relative aspect-[16/10] w-full max-w-[min(100%,560px)] overflow-hidden rounded-2xl border border-slate-200 bg-slate-900/80 shadow-[0_24px_64px_-16px_rgba(15,23,42,0.2)]">
-      <img
-        src={slide.src}
-        alt={slide.alt}
-        className="absolute inset-0 h-full w-full object-cover object-top"
-        loading="eager"
-        decoding="async"
-        width={960}
-        height={600}
-      />
-    </div>
+    <LaptopFrame>
+      <ScreenImage slide={slide} eager />
+    </LaptopFrame>
   )
 }
 
 function HeroOverlapCarousel({ slides, reduceMotion, active, setActive, prev, next }) {
   const { scrollY } = useScroll()
   const progress = useTransform(scrollY, [0, 420], [0, 1], { clamp: true })
-  const leftX = useTransform(progress, (v) => `${reduceMotion ? 0 : 22 - 22 * v}%`)
-  const rightX = useTransform(progress, (v) => `${reduceMotion ? 0 : -22 + 22 * v}%`)
-  const sideY = useTransform(progress, (v) => (reduceMotion ? 0 : 14 - 14 * v))
-  const sideScale = useTransform(progress, (v) => (reduceMotion ? 0.94 : 0.88 + 0.06 * v))
-  const sideOpacity = useTransform(progress, (v) => (reduceMotion ? 0.9 : 0.55 + 0.4 * v))
+  const sideOffset = useTransform(progress, (v) => (reduceMotion ? 52 : 52 - 10 * v))
+  const sideScale = useTransform(progress, (v) => (reduceMotion ? 0.9 : 0.84 + 0.08 * v))
+  const sideOpacity = useTransform(progress, (v) => (reduceMotion ? 0.65 : 0.45 + 0.4 * v))
+  const leftX = useTransform(sideOffset, (o) => `calc(-50% - ${o}%)`)
+  const rightX = useTransform(sideOffset, (o) => `calc(-50% + ${o}%)`)
 
   return (
-    <div className="w-full">
-      <div className="relative mx-auto flex w-full max-w-[1720px] items-end justify-center px-2 md:px-6 lg:px-10">
-        <motion.div
-          style={{ x: leftX, y: sideY, scale: sideScale, opacity: sideOpacity }}
-          className="pointer-events-none absolute bottom-0 left-0 hidden w-[clamp(260px,30vw,560px)] origin-bottom-left md:block"
-        >
-          <SideSlide slide={slides[prev]} heroOverlap />
-        </motion.div>
+    <div className="w-full overflow-hidden">
+      <div className="relative mx-auto w-full max-w-4xl">
+        <div className="relative mx-auto w-full">
+          <motion.div
+            style={{ x: leftX, scale: sideScale, opacity: sideOpacity }}
+            className="pointer-events-none absolute top-0 left-1/2 z-0 hidden w-[min(78%,520px)] origin-center md:block"
+          >
+            <SideSlide slide={slides[prev]} heroOverlap />
+          </motion.div>
 
-        <motion.div
-          style={{ x: rightX, y: sideY, scale: sideScale, opacity: sideOpacity }}
-          className="pointer-events-none absolute bottom-0 right-0 hidden w-[clamp(260px,30vw,560px)] origin-bottom-right md:block"
-        >
-          <SideSlide slide={slides[next]} heroOverlap />
-        </motion.div>
+          <motion.div
+            style={{ x: rightX, scale: sideScale, opacity: sideOpacity }}
+            className="pointer-events-none absolute top-0 left-1/2 z-0 hidden w-[min(78%,520px)] origin-center md:block"
+          >
+            <SideSlide slide={slides[next]} heroOverlap />
+          </motion.div>
 
-        <div className="relative z-10 flex w-full justify-center">
-          <div className="w-full max-w-[min(88vw,1120px)]">
+          <div className="relative z-10 w-full">
             <CenterSlide slide={slides[active]} heroOverlap />
           </div>
         </div>
@@ -166,14 +154,10 @@ export function HeroScreensCarouselMobile({ slides, reduceMotion }) {
 
   return (
     <div className="w-full">
-      <div className="relative mx-auto aspect-[16/9] max-w-[min(100%,min(82vw,71.4rem))] overflow-hidden rounded-2xl border border-white/20 bg-slate-100 shadow-[0_28px_70px_-18px_rgba(0,0,0,0.45)]">
-        <img
-          src={slides[active].src}
-          alt={slides[active].alt}
-          className="absolute inset-0 h-full w-full object-cover object-top"
-          width={1024}
-          height={640}
-        />
+      <div className="relative mx-auto max-w-[min(100%,min(82vw,56rem))]">
+        <LaptopFrame>
+          <ScreenImage slide={slides[active]} eager />
+        </LaptopFrame>
       </div>
       <div className="mt-4 flex justify-center gap-2">
         {slides.map((_, i) => (

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { STEELFLOW_URL } from '../utils/links'
+import SteelFlowLink from './SteelFlowLink'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -10,7 +12,11 @@ export default function Footer() {
       <ul className="space-y-3">
         {links.map((l) => (
           <li key={(l.to || l.href) + l.label}>
-            {l.external ? (
+            {l.confirmRedirect ? (
+              <SteelFlowLink className="text-sm text-[var(--color-navy)] transition-colors hover:text-[var(--color-primary)]">
+                {l.label}
+              </SteelFlowLink>
+            ) : l.external ? (
               <a
                 href={l.href}
                 target="_blank"
@@ -46,7 +52,9 @@ export default function Footer() {
           </div>
           {col('Soluções', [
             { href: '/#solucoes', label: 'O que entregamos' },
-            { to: '/projetos', label: 'Projetos' },
+            { to: '/sites', label: 'Sites' },
+            { to: '/sistema-gestao', label: 'Sistema EMT' },
+            { href: STEELFLOW_URL, label: 'SteelFlow SaaS', confirmRedirect: true },
             { href: '/#como-trabalhamos', label: 'Como trabalhamos' },
           ])}
           {col('Empresa', [

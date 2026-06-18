@@ -71,10 +71,10 @@ export default function Hero() {
               Falar no WhatsApp
             </a>
             <Link
-              to="/projetos"
+              to="/sites"
               className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
             >
-              Ver mostruário
+              Criação de sites
             </Link>
           </motion.div>
         </div>
@@ -84,11 +84,11 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] pb-10 pt-12 md:pb-14 md:pt-16">
+      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] px-5 pb-8 pt-10 sm:px-8 md:px-12 md:pb-10 md:pt-12 lg:px-24">
         <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-5">
           Algumas das nossas entregas
         </p>
-        <div className="relative z-20 mt-4 md:mt-6">
+        <div className="relative z-20">
           <HeroScreensCarousel slides={heroCarouselSlides} reduceMotion={reduceMotion} variant="heroOverlap" />
         </div>
       </div>

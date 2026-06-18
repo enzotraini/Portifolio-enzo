@@ -53,10 +53,10 @@ export default function HeroMobile() {
             Falar no WhatsApp
           </a>
           <Link
-            to="/projetos"
+            to="/sites"
             className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm"
           >
-            Ver mostruário
+            Criação de sites
           </Link>
         </div>
       </div>

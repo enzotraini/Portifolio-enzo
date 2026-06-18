@@ -1,16 +1,58 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
+import { STEELFLOW_URL } from '../utils/links'
+import SteelFlowLink from './SteelFlowLink'
 
 const links = [
   { href: '/#solucoes', label: 'Soluções' },
   { to: '/sistema-gestao', label: 'Sistema EMT' },
-  { to: '/projetos', label: 'Projetos' },
+  { to: '/sites', label: 'Sites' },
+  { href: STEELFLOW_URL, label: 'SteelFlow', confirmRedirect: true },
   { href: '/#sobre', label: 'Sobre' },
   { href: '/#depoimentos', label: 'Depoimentos' },
   { href: '/#faq', label: 'FAQ' },
   { href: '/#contato', label: 'Contato' },
 ]
+
+function NavItem({ link, className, onClick }) {
+  if (link.confirmRedirect) {
+    return (
+      <SteelFlowLink className={className} onNavigate={onClick}>
+        {link.label}
+      </SteelFlowLink>
+    )
+  }
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        onClick={onClick}
+      >
+        {link.label}
+      </a>
+    )
+  }
+  if (link.to) {
+    return (
+      <Link to={link.to} className={className} onClick={onClick}>
+        {link.label}
+      </Link>
+    )
+  }
+  return (
+    <a href={link.href} className={className} onClick={onClick}>
+      {link.label}
+    </a>
+  )
+}
+
+function linkKey(link) {
+  return link.to || link.href
+}
 
 function navLinkClass(useLightNav) {
   return `text-sm font-medium transition-colors ${
@@ -72,17 +114,9 @@ export default function Navbar() {
 
           {/* Centro: âncoras (desktop) */}
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
-            {links.map((link) =>
-              link.to ? (
-                <Link key={link.to} to={link.to} className={navLinkClass(useLightNav)}>
-                  {link.label}
-                </Link>
-              ) : (
-                <a key={link.href} href={link.href} className={navLinkClass(useLightNav)}>
-                  {link.label}
-                </a>
-              ),
-            )}
+            {links.map((link) => (
+              <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
+            ))}
           </div>
 
           {/* Direita: CTAs ou menu */}
@@ -138,27 +172,14 @@ export default function Navbar() {
               animate={{ y: 0, opacity: 1 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {links.map((link) =>
-                link.to ? (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className="font-display text-xl font-semibold text-[var(--color-navy)]"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="font-display text-xl font-semibold text-[var(--color-navy)]"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                ),
-              )}
+              {links.map((link) => (
+                <NavItem
+                  key={linkKey(link)}
+                  link={link}
+                  className="font-display text-xl font-semibold text-[var(--color-navy)]"
+                  onClick={() => setMobileOpen(false)}
+                />
+              ))}
               <a
                 href="/#contato"
                 className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] px-6 py-3 font-semibold text-[var(--color-navy)]"
