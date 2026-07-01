@@ -1,4 +1,5 @@
 import Footer from '../components/Footer'
+import { EMT_SYSTEM_URL } from '../utils/links'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
 const modules = [
@@ -53,7 +54,7 @@ export default function SystemPage() {
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <a
-                href="https://front-teste-emt-v2-1.onrender.com/auth/sign-in"
+                href={EMT_SYSTEM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
@@ -125,7 +126,7 @@ export default function SystemPage() {
               Falar com especialista
             </a>
             <a
-              href="https://front-teste-emt-v2-1.onrender.com/auth/sign-in"
+              href={EMT_SYSTEM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] bg-white px-7 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:bg-[var(--color-surface)]"

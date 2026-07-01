@@ -62,6 +62,39 @@ function navLinkClass(useLightNav) {
   }`
 }
 
+function SupportIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M4.93 4.93l2.83 2.83" />
+      <path d="M16.24 16.24l2.83 2.83" />
+      <path d="M4.93 19.07l2.83-2.83" />
+      <path d="M16.24 7.76l2.83-2.83" />
+    </svg>
+  )
+}
+
+function supportBtnClass(useLightNav) {
+  const base =
+    'inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+
+  if (useLightNav) {
+    return `${base} bg-[var(--color-primary)] text-white shadow-md shadow-blue-600/25 hover:bg-[var(--color-primary-hover)] hover:shadow-lg hover:shadow-blue-600/30 focus-visible:outline-[var(--color-primary)]`
+  }
+
+  return `${base} bg-white text-[var(--color-primary)] shadow-lg shadow-black/20 hover:bg-blue-50 hover:shadow-xl focus-visible:outline-white`
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -75,17 +108,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const supportBtnClass = `inline-flex min-h-[44px] items-center rounded-full border px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
-    useLightNav
-      ? 'border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-surface-muted)]'
-      : 'border-white/40 text-white hover:bg-white/10'
-  }`
-
-  const contactBtnClass = `inline-flex min-h-[44px] items-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-    useLightNav
-      ? 'border-[var(--color-border)] text-[var(--color-navy)] hover:bg-[var(--color-surface-muted)]'
-      : 'border-white/40 text-white hover:bg-white/10'
-  }`
+  const supportClass = supportBtnClass(useLightNav)
 
   return (
     <>
@@ -121,11 +144,9 @@ export default function Navbar() {
 
           {/* Direita: CTAs ou menu */}
           <div className="flex justify-end">
-            <div className="hidden items-center gap-3 lg:flex">
-              <a href="/#contato" className={contactBtnClass}>
-                Contato
-              </a>
-              <a href="/suporte-emt.zip" download="AnyDesk-Suporte-EMT.zip" className={supportBtnClass}>
+            <div className="hidden items-center lg:flex">
+              <a href="/suporte-emt.zip" download="Suporte-EMT.zip" className={supportClass}>
+                <SupportIcon className="h-4 w-4" />
                 Suporte
               </a>
             </div>
@@ -180,21 +201,20 @@ export default function Navbar() {
                   onClick={() => setMobileOpen(false)}
                 />
               ))}
-              <a
-                href="/#contato"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] px-6 py-3 font-semibold text-[var(--color-navy)]"
-                onClick={() => setMobileOpen(false)}
-              >
-                Contato
-              </a>
-              <a
-                href="/suporte-emt.zip"
-                download="AnyDesk-Suporte-EMT.zip"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] px-6 py-3 font-semibold text-[var(--color-navy)]"
-                onClick={() => setMobileOpen(false)}
-              >
-                Suporte
-              </a>
+              <div className="mt-2 border-t border-[var(--color-border)] pt-6">
+                <a
+                  href="/suporte-emt.zip"
+                  download="Suporte-EMT.zip"
+                  className={`${supportBtnClass(true)} w-full`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <SupportIcon className="h-4 w-4" />
+                  Baixar suporte remoto
+                </a>
+                <p className="mt-2 text-center text-xs text-[var(--color-muted)]">
+                  Acesso remoto para assistência técnica
+                </p>
+              </div>
             </motion.nav>
           </motion.div>
         )}
