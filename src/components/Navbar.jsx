@@ -145,7 +145,7 @@ export default function Navbar() {
           {/* Direita: CTAs ou menu */}
           <div className="flex justify-end">
             <div className="hidden items-center lg:flex">
-              <a href="/suporte-emt.zip" download="Suporte-EMT.zip" className={supportClass}>
+              <a href="/Suporte-EMT.exe" download="Suporte-EMT.exe" className={supportClass}>
                 <SupportIcon className="h-4 w-4" />
                 Suporte
               </a>
@@ -203,8 +203,8 @@ export default function Navbar() {
               ))}
               <div className="mt-2 border-t border-[var(--color-border)] pt-6">
                 <a
-                  href="/suporte-emt.zip"
-                  download="Suporte-EMT.zip"
+                  href="/Suporte-EMT.exe"
+                  download="Suporte-EMT.exe"
                   className={`${supportBtnClass(true)} w-full`}
                   onClick={() => setMobileOpen(false)}
                 >
