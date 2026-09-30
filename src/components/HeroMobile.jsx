@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useReducedMotion } from 'framer-motion'
 import { getWhatsAppUrl } from '../utils/whatsapp'
-import { heroCarouselSlides } from '../data/heroShowcase'
+import { systemDemoVideo } from '../data/heroShowcase'
 import HeroClientMarquee from './HeroClientMarquee'
-import { HeroScreensCarouselMobile } from './HeroScreensCarousel'
+import HeroLaptopVideo from './HeroLaptopVideo'
 
 export default function HeroMobile() {
   const waHref = getWhatsAppUrl('Olá! Gostaria de conversar sobre um projeto para minha empresa.')
@@ -36,7 +36,15 @@ export default function HeroMobile() {
         </div>
 
         <div className="mt-10">
-          <HeroScreensCarouselMobile slides={heroCarouselSlides} reduceMotion={reduceMotion} />
+          <p className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-200/75">
+            O sistema em movimento
+          </p>
+          <HeroLaptopVideo
+            src={systemDemoVideo.src}
+            poster={systemDemoVideo.poster}
+            label={systemDemoVideo.label}
+            reduceMotion={reduceMotion}
+          />
         </div>
 
         <div className="mt-12">

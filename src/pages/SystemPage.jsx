@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import Footer from '../components/Footer'
+import { systemScreens } from '../data/heroShowcase'
 import { EMT_SYSTEM_URL } from '../utils/links'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
@@ -29,9 +31,11 @@ const diferencials = [
 ]
 
 export default function SystemPage() {
+  const [activeIndex, setActiveIndex] = useState(null)
   const waHref = getWhatsAppUrl(
-    'Olá! Tenho interesse no sistema de gestão empresarial da EMT e gostaria de uma demonstração.',
+    'Olá! Tenho interesse no EMT ERP e gostaria de uma demonstração.',
   )
+  const activeScreen = activeIndex === null ? null : systemScreens[activeIndex]
 
   return (
     <>
@@ -43,7 +47,7 @@ export default function SystemPage() {
         <div className="relative mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-center">
           <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/90">
-              Software próprio EMT
+              EMT ERP
             </p>
             <h1 className="text-4xl font-display font-bold leading-tight text-white sm:text-5xl">
               Sistema de gestão empresarial para organizar e escalar sua operação
@@ -82,6 +86,41 @@ export default function SystemPage() {
               ))}
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-6 md:px-12 md:py-20 lg:px-24">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)]">
+            Por dentro do sistema
+          </p>
+          <h2 className="mt-3 max-w-3xl text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
+            As telas da operação, do login ao financeiro
+          </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {systemScreens.map((screen, index) => (
+              <button
+                key={screen.src}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+                aria-label={`Ampliar tela: ${screen.title}`}
+              >
+                <img
+                  src={screen.src}
+                  alt=""
+                  className="aspect-[2/1] w-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
+                  width={1920}
+                  height={960}
+                />
+                <span className="block px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+                  {screen.title}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -138,6 +177,77 @@ export default function SystemPage() {
       </section>
 
       <Footer />
+      {activeScreen && (
+        <ScreenLightbox
+          screen={activeScreen}
+          onClose={() => setActiveIndex(null)}
+          onPrev={() => setActiveIndex((index) => (index - 1 + systemScreens.length) % systemScreens.length)}
+          onNext={() => setActiveIndex((index) => (index + 1) % systemScreens.length)}
+        />
+      )}
     </>
+  )
+}
+
+function ScreenLightbox({ screen, onClose, onPrev, onNext }) {
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.key === 'Escape') onClose()
+      if (event.key === 'ArrowLeft') onPrev()
+      if (event.key === 'ArrowRight') onNext()
+    }
+    document.addEventListener('keydown', onKey)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [onClose, onPrev, onNext])
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/80 p-4 sm:p-8"
+      role="dialog"
+      aria-modal="true"
+      aria-label={screen.alt}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-6xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <img
+          src={screen.src}
+          alt={screen.alt}
+          className="max-h-[min(82vh,920px)] w-full rounded-xl bg-slate-900 object-contain shadow-2xl"
+        />
+        <p className="mt-3 text-center text-sm font-semibold text-white">{screen.title}</p>
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute -top-3 right-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-navy)] shadow-md sm:-right-3"
+          aria-label="Fechar imagem"
+        >
+          <span aria-hidden className="text-xl leading-none">×</span>
+        </button>
+        <button
+          type="button"
+          onClick={onPrev}
+          className="absolute top-1/2 left-2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[var(--color-navy)] shadow-md sm:left-3"
+          aria-label="Imagem anterior"
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          onClick={onNext}
+          className="absolute top-1/2 right-2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[var(--color-navy)] shadow-md sm:right-3"
+          aria-label="Próxima imagem"
+        >
+          ›
+        </button>
+      </div>
+    </div>
   )
 }

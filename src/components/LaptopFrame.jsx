@@ -1,4 +1,9 @@
-export default function LaptopFrame({ children, className = '', compact = false }) {
+export default function LaptopFrame({
+  children,
+  className = '',
+  compact = false,
+  screenClassName = 'aspect-[2/1]',
+}) {
   const dot = compact ? 'h-2 w-2' : 'h-3 w-3'
   const chromePad = compact ? 'p-1.5' : 'p-3 md:p-4'
   const titleBar = compact ? 'px-2 py-1' : 'px-3 py-2 md:py-2.5'
@@ -26,7 +31,7 @@ export default function LaptopFrame({ children, className = '', compact = false 
           <div className={compact ? 'w-8 shrink-0' : 'w-[58px] shrink-0'} aria-hidden />
         </div>
 
-        <div className={`relative aspect-[2/1] w-full overflow-hidden bg-slate-900 ${compact ? 'rounded-b-sm' : 'rounded-b-md'}`}>
+        <div className={`relative w-full overflow-hidden bg-slate-900 ${screenClassName} ${compact ? 'rounded-b-sm' : 'rounded-b-md'}`}>
           {children}
         </div>
       </div>

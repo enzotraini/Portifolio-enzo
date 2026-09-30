@@ -52,9 +52,10 @@ export default function Footer() {
           </div>
           {col('Soluções', [
             { href: '/#solucoes', label: 'O que entregamos' },
-            { to: '/sites', label: 'Sites' },
-            { to: '/sistema-gestao', label: 'Sistema EMT' },
+            { to: '/sistema-gestao', label: 'EMT ERP' },
+            { to: '/crm', label: 'EMT CRM' },
             { href: STEELFLOW_URL, label: 'SteelFlow SaaS', confirmRedirect: true },
+            { to: '/sites', label: 'Criador de sites' },
             { href: '/#como-trabalhamos', label: 'Como trabalhamos' },
           ])}
           {col('Empresa', [

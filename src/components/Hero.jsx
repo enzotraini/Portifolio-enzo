@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { getWhatsAppUrl } from '../utils/whatsapp'
-import { heroCarouselSlides } from '../data/heroShowcase'
+import { systemDemoVideo } from '../data/heroShowcase'
 import HeroClientMarquee from './HeroClientMarquee'
-import HeroScreensCarousel from './HeroScreensCarousel'
+import HeroLaptopVideo from './HeroLaptopVideo'
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(true)
@@ -86,10 +86,15 @@ export default function Hero() {
 
       <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] px-5 pb-8 pt-10 sm:px-8 md:px-12 md:pb-10 md:pt-12 lg:px-24">
         <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-5">
-          Algumas das nossas entregas
+          O sistema em movimento
         </p>
         <div className="relative z-20">
-          <HeroScreensCarousel slides={heroCarouselSlides} reduceMotion={reduceMotion} variant="heroOverlap" />
+          <HeroLaptopVideo
+            src={systemDemoVideo.src}
+            poster={systemDemoVideo.poster}
+            label={systemDemoVideo.label}
+            reduceMotion={reduceMotion}
+          />
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import SitesPage from './pages/SitesPage'
 import SystemPage from './pages/SystemPage'
+import CrmPage from './pages/CrmPage'
 
 function AppShell() {
   const location = useLocation()
@@ -21,6 +22,7 @@ function AppShell() {
           <Route path="/sites" element={<SitesPage />} />
           <Route path="/projetos" element={<Navigate to="/sites" replace />} />
           <Route path="/sistema-gestao" element={<SystemPage />} />
+          <Route path="/crm" element={<CrmPage />} />
         </Routes>
       </main>
     </>

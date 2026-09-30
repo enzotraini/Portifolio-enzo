@@ -5,13 +5,11 @@ import { STEELFLOW_URL } from '../utils/links'
 import SteelFlowLink from './SteelFlowLink'
 
 const links = [
-  { href: '/#solucoes', label: 'Soluções' },
-  { to: '/sistema-gestao', label: 'Sistema EMT' },
-  { to: '/sites', label: 'Sites' },
+  { to: '/sistema-gestao', label: 'EMT ERP' },
+  { to: '/crm', label: 'EMT CRM' },
   { href: STEELFLOW_URL, label: 'SteelFlow', confirmRedirect: true },
+  { to: '/sites', label: 'Criador de sites' },
   { href: '/#sobre', label: 'Sobre' },
-  { href: '/#depoimentos', label: 'Depoimentos' },
-  { href: '/#faq', label: 'FAQ' },
   { href: '/#contato', label: 'Contato' },
 ]
 
@@ -59,7 +57,7 @@ function navLinkClass(useLightNav) {
     useLightNav
       ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
       : 'text-white hover:text-white/85'
-  }`
+  } whitespace-nowrap`
 }
 
 function SupportIcon({ className }) {
@@ -136,7 +134,7 @@ export default function Navbar() {
           </div>
 
           {/* Centro: âncoras (desktop) */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex xl:gap-8">
             {links.map((link) => (
               <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
             ))}
