@@ -34,18 +34,24 @@ function ParticleField() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     let raf = 0
-    let w = (canvas.width = canvas.offsetWidth * devicePixelRatio)
-    let h = (canvas.height = canvas.offsetHeight * devicePixelRatio)
+    let visible = false
+    let w = 0
+    let h = 0
 
-    const onResize = () => {
-      w = canvas.width = canvas.offsetWidth * devicePixelRatio
-      h = canvas.height = canvas.offsetHeight * devicePixelRatio
+    const resize = () => {
+      w = canvas.width = canvas.offsetWidth * dpr
+      h = canvas.height = canvas.offsetHeight * dpr
     }
-    window.addEventListener('resize', onResize)
+    resize()
+    window.addEventListener('resize', resize)
 
-    const count = Math.min(110, Math.floor((w * h) / 22000))
+    const count = Math.min(40, Math.floor((w * h) / 45000))
     const particles = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -54,25 +60,27 @@ function ParticleField() {
       r: Math.random() * 1.6 + 0.4,
     }))
 
-    const onMove = (e) => {
+    const onMove = (event) => {
       const rect = canvas.getBoundingClientRect()
-      mouse.current.x = (e.clientX - rect.left) * devicePixelRatio
-      mouse.current.y = (e.clientY - rect.top) * devicePixelRatio
+      mouse.current.x = (event.clientX - rect.left) * dpr
+      mouse.current.y = (event.clientY - rect.top) * dpr
     }
-    canvas.addEventListener('mousemove', onMove)
-    canvas.addEventListener('mouseleave', () => {
+    const onLeave = () => {
       mouse.current.x = -1000
       mouse.current.y = -1000
-    })
+    }
+    canvas.addEventListener('mousemove', onMove)
+    canvas.addEventListener('mouseleave', onLeave)
 
     const tick = () => {
+      if (!visible || document.hidden) return
       ctx.clearRect(0, 0, w, h)
       for (const p of particles) {
         const dx = p.x - mouse.current.x
         const dy = p.y - mouse.current.y
         const dist = Math.hypot(dx, dy)
-        if (dist < 160 * devicePixelRatio) {
-          const f = (160 * devicePixelRatio - dist) / (160 * devicePixelRatio)
+        if (dist < 160 * dpr && dist > 0) {
+          const f = (160 * dpr - dist) / (160 * dpr)
           p.vx += (dx / dist) * f * 0.4
           p.vy += (dy / dist) * f * 0.4
         }
@@ -86,7 +94,7 @@ function ParticleField() {
         if (p.y > h) p.y = 0
 
         ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r * devicePixelRatio, 0, Math.PI * 2)
+        ctx.arc(p.x, p.y, p.r * dpr, 0, Math.PI * 2)
         ctx.fillStyle = 'rgba(120,180,255,0.9)'
         ctx.fill()
       }
@@ -95,10 +103,10 @@ function ParticleField() {
           const a = particles[i]
           const b = particles[j]
           const d = Math.hypot(a.x - b.x, a.y - b.y)
-          const max = 110 * devicePixelRatio
+          const max = 110 * dpr
           if (d < max) {
             ctx.strokeStyle = `rgba(80,140,255,${(1 - d / max) * 0.18})`
-            ctx.lineWidth = devicePixelRatio * 0.5
+            ctx.lineWidth = dpr * 0.5
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
@@ -113,7 +121,7 @@ function ParticleField() {
           0,
           mouse.current.x,
           mouse.current.y,
-          180 * devicePixelRatio,
+          180 * dpr,
         )
         grad.addColorStop(0, 'rgba(60,140,255,0.25)')
         grad.addColorStop(1, 'rgba(60,140,255,0)')
@@ -122,10 +130,25 @@ function ParticleField() {
       }
       raf = requestAnimationFrame(tick)
     }
-    tick()
+
+    const start = () => {
+      cancelAnimationFrame(raf)
+      if (visible && !document.hidden) raf = requestAnimationFrame(tick)
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = Boolean(entry?.isIntersecting)
+      start()
+    })
+    observer.observe(canvas)
+    document.addEventListener('visibilitychange', start)
+
     return () => {
       cancelAnimationFrame(raf)
-      window.removeEventListener('resize', onResize)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', start)
+      window.removeEventListener('resize', resize)
+      canvas.removeEventListener('mousemove', onMove)
+      canvas.removeEventListener('mouseleave', onLeave)
     }
   }, [])
 

@@ -1,12 +1,36 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Volume2, VolumeX } from 'lucide-react'
 import LaptopFrame from './LaptopFrame'
 
 export default function HeroLaptopVideo({ src, poster, label, reduceMotion = false }) {
+  const boxRef = useRef(null)
   const videoRef = useRef(null)
   const [failed, setFailed] = useState(false)
   const [muted, setMuted] = useState(true)
-  const showStill = reduceMotion || failed
+  const [shouldLoad, setShouldLoad] = useState(false)
+  const showStill = reduceMotion || failed || !shouldLoad
+
+  useEffect(() => {
+    if (reduceMotion) return
+    const node = boxRef.current
+    if (!node) return
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return
+        setShouldLoad(true)
+        observer.disconnect()
+      },
+      { rootMargin: '240px' },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [reduceMotion])
 
   const attachVideo = useCallback((node) => {
     videoRef.current = node
@@ -28,15 +52,16 @@ export default function HeroLaptopVideo({ src, poster, label, reduceMotion = fal
   }
 
   return (
-    <div className="mx-auto w-full max-w-4xl">
+    <div ref={boxRef} className="mx-auto w-full max-w-4xl">
       <LaptopFrame screenClassName="aspect-video">
         {showStill ? (
           <img
             src={poster}
             alt={label}
             className="absolute inset-0 h-full w-full object-cover object-top"
-            width={1920}
-            height={1080}
+            width={1766}
+            height={891}
+            decoding="async"
           />
         ) : (
           <video
@@ -48,7 +73,7 @@ export default function HeroLaptopVideo({ src, poster, label, reduceMotion = fal
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             aria-label={label}
             onError={() => setFailed(true)}
           />

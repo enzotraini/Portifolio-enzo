@@ -24,39 +24,39 @@ export const heroClientLogos = [
 /** Motion do sistema, reproduzido dentro da tela do computador no hero. */
 export const systemDemoVideo = {
   src: '/videos/emt-sistema.mp4',
-  poster: '/images/projects/emt-sistema-dashboard.png',
+  poster: '/images/projects/emt-sistema-dashboard.jpg',
   label: 'Demonstração em motion do sistema comercial e fiscal EMT',
 }
 
 /** Capturas do sistema — galeria em /sistema-gestao */
 export const systemScreens = [
   {
-    src: '/images/projects/emt-sistema-login.png',
+    src: '/images/projects/emt-sistema-login.jpg',
     title: 'Login',
     alt: 'Tela de login do sistema comercial e fiscal EMT',
   },
   {
-    src: '/images/projects/emt-sistema-dashboard.png',
+    src: '/images/projects/emt-sistema-dashboard.jpg',
     title: 'Visão geral',
     alt: 'Dashboard com visão geral das operações do sistema EMT',
   },
   {
-    src: '/images/projects/emt-sistema-atendimento.png',
+    src: '/images/projects/emt-sistema-atendimento.jpg',
     title: 'Atendimento',
     alt: 'Painel de atendimento ao cliente com cotação de venda',
   },
   {
-    src: '/images/projects/emt-sistema-nfe.png',
+    src: '/images/projects/emt-sistema-nfe.jpg',
     title: 'NF-e',
     alt: 'Consulta de NF-e com status fiscal e integração SEFAZ',
   },
   {
-    src: '/images/projects/emt-sistema-financeiro.png',
+    src: '/images/projects/emt-sistema-financeiro.jpg',
     title: 'Financeiro',
     alt: 'Módulo financeiro com contas a receber e duplicatas',
   },
   {
-    src: '/images/projects/emt-sistema-vendedores.png',
+    src: '/images/projects/emt-sistema-vendedores.jpg',
     title: 'Vendedores',
     alt: 'Cadastro de vendedores no módulo comercial do sistema',
   },

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { getWhatsAppUrl } from '../utils/whatsapp'
@@ -7,18 +6,7 @@ import HeroClientMarquee from './HeroClientMarquee'
 import HeroLaptopVideo from './HeroLaptopVideo'
 
 export default function Hero() {
-  const [isMobile, setIsMobile] = useState(true)
   const reduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-
-  if (isMobile) return null
-
   const waHref = getWhatsAppUrl('Olá! Gostaria de conversar sobre um projeto para minha empresa.')
 
   return (

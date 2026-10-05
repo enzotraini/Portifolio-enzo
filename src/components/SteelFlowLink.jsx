@@ -29,7 +29,7 @@ export default function SteelFlowLink({ className = '', children, onNavigate }) 
       <button
         type="button"
         onClick={handleOpen}
-        className={`cursor-pointer border-0 bg-transparent p-0 font-inherit ${className}`}
+        className={`cursor-pointer border-0 bg-transparent p-0 text-left font-inherit ${className}`}
       >
         {children}
       </button>

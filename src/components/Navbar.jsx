@@ -186,7 +186,7 @@ export default function Navbar() {
             role="presentation"
           >
             <motion.nav
-              className="flex flex-col gap-6 px-6"
+              className="flex flex-col items-start gap-6 px-6"
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               onClick={(e) => e.stopPropagation()}
