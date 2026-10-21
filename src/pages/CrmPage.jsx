@@ -19,10 +19,13 @@ export default function CrmPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] to-[#120a8f] px-5 pb-20 pt-32 sm:px-6 md:px-12 md:pt-36 lg:px-24">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-72 w-[min(130vw,920px)] -translate-x-1/2 rounded-full bg-indigo-300/20 blur-[110px]" />
-          <div className="absolute bottom-10 right-0 h-52 w-52 rounded-full bg-blue-300/20 blur-[90px]" />
-        </div>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 45% at 50% 0%, rgba(165, 180, 252, 0.28), transparent 68%), radial-gradient(ellipse 24% 30% at 100% 88%, rgba(147, 197, 253, 0.2), transparent 70%)',
+          }}
+        />
         <div className="relative mx-auto w-full max-w-3xl text-center">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/90">
             EMT CRM
@@ -31,9 +34,9 @@ export default function CrmPage() {
             Um novo produto da EMT, ainda em produção
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg">
-            Estamos construindo o EMT CRM. Os detalhes ficam para o lançamento — por enquanto, esta página só marca o lugar.
+            Estamos construindo o EMT CRM. Os detalhes ficam para o lançamento. Por enquanto, esta página só marca o lugar.
           </p>
-          <p className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
+          <p className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-sm font-semibold text-white">
             <span className="h-2 w-2 rounded-full bg-amber-300" />
             Em produção
           </p>

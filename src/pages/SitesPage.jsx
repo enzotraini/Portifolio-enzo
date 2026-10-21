@@ -442,7 +442,7 @@ function TransformSection() {
               </span>
             </h2>
             <p className="mt-6 max-w-md text-white/65">
-              Role para ver a transformação. Cada detalhe — performance, design, hierarquia visual e conversão — é
+              Role para ver a transformação. Cada detalhe, como performance, design, hierarquia visual e conversão, é
               repensado para o seu negócio.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-4 text-sm">
@@ -666,7 +666,7 @@ const SEGMENTS = [
     I: Factory,
     exampleName: 'Raio Comercial',
     previewUrl: 'https://www.raiocomercial.com.br',
-    copy: 'Catálogo industrial, credibilidade e geração de orçamentos — no padrão da Raio Comercial.',
+    copy: 'Catálogo industrial, credibilidade e geração de orçamentos, no padrão da Raio Comercial.',
     description: 'indústria e distribuição',
     tags: ['Catálogo', 'Orçamentos', 'SEO', 'WhatsApp'],
   },
@@ -676,7 +676,7 @@ const SEGMENTS = [
     I: UtensilsCrossed,
     exampleName: 'Food Light',
     previewUrl: 'https://site-foodlight-wine.vercel.app',
-    copy: 'Site institucional que transmite confiança e converte visitas em contatos — como a Food Light.',
+    copy: 'Site institucional que transmite confiança e converte visitas em contatos, como a Food Light.',
     description: 'alimentação e refeições coletivas',
     tags: ['Cardápio', 'WhatsApp', 'SEO local', 'Institucional'],
   },
@@ -686,7 +686,7 @@ const SEGMENTS = [
     I: Music,
     exampleName: 'Allegro Escola de Música',
     previewUrl: 'https://aulasdepianoeteclado.lovable.app',
-    copy: 'Presença acolhedora para escolas, estúdios e professores — inspirado na Allegro.',
+    copy: 'Presença acolhedora para escolas, estúdios e professores, inspirado na Allegro.',
     description: 'escolas e aulas de música',
     tags: ['Agendamento', 'Cursos', 'WhatsApp', 'Apresentação'],
   },
@@ -706,7 +706,7 @@ const SEGMENTS = [
     I: Cpu,
     exampleName: 'Future Motion Studio',
     previewUrl: 'https://motion-architects-studio.lovable.app',
-    copy: 'Experiência visual premium para marcas de tecnologia — como o Future Motion Studio.',
+    copy: 'Experiência visual premium para marcas de tecnologia, como o Future Motion Studio.',
     description: 'tecnologia e inovação',
     tags: ['Motion design', 'Portfolio', 'Performance', 'Conversão'],
   },
@@ -916,7 +916,7 @@ function SitesFooter() {
   return (
     <footer className="border-t border-white/5 py-10 text-center text-xs text-white/40">
       <p>
-        © {year} EMT Informática — Criação de Sites Profissionais.{' '}
+        © {year} EMT Informática. Criação de Sites Profissionais.{' '}
         <Link to="/" className="underline-offset-2 hover:text-white/60 hover:underline">
           Voltar ao site principal
         </Link>

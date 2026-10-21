@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import { STEELFLOW_URL } from '../utils/links'
 import SteelFlowLink from './SteelFlowLink'
+import NavDock from './NavDock'
 
 const links = [
   { to: '/sistema-gestao', label: 'EMT ERP' },
@@ -34,9 +35,9 @@ function NavItem({ link, className, onClick }) {
       </a>
     )
   }
-  if (link.to) {
+  if (link.to || (typeof link.href === 'string' && link.href.startsWith('/#'))) {
     return (
-      <Link to={link.to} className={className} onClick={onClick}>
+      <Link to={link.to || link.href} className={className} onClick={onClick}>
         {link.label}
       </Link>
     )
@@ -53,11 +54,11 @@ function linkKey(link) {
 }
 
 function navLinkClass(useLightNav) {
-  return `text-sm font-medium transition-colors ${
+  return `text-sm font-medium transition-colors whitespace-nowrap ${
     useLightNav
       ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
       : 'text-white hover:text-white/85'
-  } whitespace-nowrap`
+  }`
 }
 
 function SupportIcon({ className }) {
@@ -95,16 +96,64 @@ function supportBtnClass(useLightNav) {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [section, setSection] = useState(null)
   const location = useLocation()
   const isHome = location.pathname === '/'
   const useLightNav = scrolled || !isHome || mobileOpen
+  const routeActive =
+    location.pathname === '/sistema-gestao'
+      ? 'erp'
+      : location.pathname === '/crm'
+        ? 'crm'
+        : location.pathname === '/sites'
+          ? 'sites'
+          : null
+  const dockActive = routeActive || (isHome ? section : null)
+  const showDock = isHome && pastHero
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const handleScroll = () => {
+      const y = window.scrollY
+      const nextScrolled = y > 20
+      const heroLimit = Math.min(window.innerHeight, 1100) * 0.82
+      const nextDock = y > heroLimit
+      setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
+      setPastHero((current) => (current === nextDock ? current : nextDock))
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
   }, [])
+
+  useEffect(() => {
+    if (!isHome) return
+
+    const nodes = ['sobre', 'contato'].map((id) => document.getElementById(id)).filter(Boolean)
+    if (!nodes.length) return
+
+    const seen = new Map()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) seen.set(entry.target.id, entry.intersectionRatio)
+          else seen.delete(entry.target.id)
+        })
+        const best = [...seen.entries()].sort((a, b) => b[1] - a[1])[0]
+        const next = best ? best[0] : null
+        setSection((current) => (current === next ? current : next))
+      },
+      { rootMargin: '-42% 0px -48% 0px', threshold: [0, 0.2, 0.5] },
+    )
+
+    nodes.forEach((node) => observer.observe(node))
+    return () => observer.disconnect()
+  }, [isHome])
 
   const supportClass = supportBtnClass(useLightNav)
 
@@ -113,7 +162,7 @@ export default function Navbar() {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           useLightNav
-            ? 'bg-white/95 backdrop-blur-md border-b border-[var(--color-border)] shadow-sm'
+            ? 'bg-white border-b border-[var(--color-border)] shadow-sm'
             : 'border-b border-transparent bg-transparent'
         }`}
         initial={{ y: -100 }}
@@ -123,21 +172,36 @@ export default function Navbar() {
         <nav className="relative mx-auto flex max-w-[1600px] items-center justify-between gap-x-4 px-5 py-3.5 sm:px-6 md:px-12 md:py-4 lg:px-24">
           {/* Esquerda: marca */}
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-            <a
-              href="/"
-              className={`font-display shrink-0 text-lg font-bold transition-colors sm:text-xl ${
+            <Link
+              to="/"
+              onClick={() => {
+                if (location.pathname === '/' && !location.hash) window.scrollTo(0, 0)
+              }}
+              className={`relative z-10 font-display shrink-0 text-lg font-bold transition-colors sm:text-xl ${
                 useLightNav ? 'text-[var(--color-navy)]' : 'text-white'
               }`}
             >
               EMT
-            </a>
+            </Link>
           </div>
 
-          {/* Centro: âncoras (desktop) */}
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex xl:gap-8">
-            {links.map((link) => (
-              <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
-            ))}
+          <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+            <AnimatePresence initial={false}>
+              {!showDock && (
+                <motion.div
+                  key="links"
+                  className="flex items-center gap-5 xl:gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {links.map((link) => (
+                    <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Direita: CTAs ou menu */}
@@ -174,6 +238,22 @@ export default function Navbar() {
           </div>
         </nav>
       </motion.header>
+
+      <AnimatePresence initial={false}>
+        {showDock && (
+          <motion.div
+            key="dock"
+            className="fixed top-1/2 z-40 hidden -translate-y-1/2 lg:block"
+            style={{ left: 'max(0.75rem, env(safe-area-inset-left))' }}
+            initial={{ x: -28, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -28, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <NavDock tone="light" activeId={dockActive} vertical />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {mobileOpen && (

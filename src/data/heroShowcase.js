@@ -28,7 +28,7 @@ export const systemDemoVideo = {
   label: 'Demonstração em motion do sistema comercial e fiscal EMT',
 }
 
-/** Capturas do sistema — galeria em /sistema-gestao */
+/** Capturas do sistema. Galeria em /sistema-gestao */
 export const systemScreens = [
   {
     src: '/images/projects/emt-sistema-login.jpg',

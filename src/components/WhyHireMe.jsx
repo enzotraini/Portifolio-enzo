@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { getWhatsAppUrl } from '../utils/whatsapp'
+import RevealWords from './RevealWords'
 
 const benefits = [
   {
@@ -20,7 +20,7 @@ const benefits = [
       </svg>
     ),
     title: 'Comunicação clara',
-    text: 'Escopo, prazos e entregas definidos — você sempre sabe o que esperar.',
+    text: 'Escopo, prazos e entregas definidos. Você sempre sabe o que esperar.',
   },
   {
     icon: (
@@ -44,45 +44,34 @@ const benefits = [
 
 export default function WhyHireMe() {
   const ref = useRef(null)
-  const [isMobile, setIsMobile] = useState(true)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const reduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-
   const waHref = getWhatsAppUrl('Olá! Quero entender como a EMT pode ajudar minha empresa.')
 
   return (
-    <section id="diferenciais" className="relative py-20 sm:py-24 md:py-28 overflow-hidden bg-[var(--color-void)]" ref={ref}>
+    <section id="diferenciais" className="below-fold relative py-20 sm:py-24 md:py-28 overflow-hidden bg-[var(--color-void)]" ref={ref}>
       <div className="relative px-5 sm:px-6 md:px-12 lg:px-24 max-w-6xl mx-auto">
         <motion.p
           className="text-center text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)] mb-3"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.45 }}
         >
           Por que a EMT
         </motion.p>
-        <motion.h2
+        <RevealWords
+          text="Mais que código: parceria com o seu time"
           className="text-3xl sm:text-4xl font-display font-bold mb-4 text-center text-[var(--color-navy)]"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.04 }}
-        >
-          Mais que código: parceria com o seu time
-        </motion.h2>
+        />
         <motion.p
           className="text-center text-[var(--color-muted)] max-w-2xl mx-auto mb-14 text-lg"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.5, delay: 0.08 }}
         >
-          Você precisa de soluções que funcionem no mundo real — com suporte e evolução depois da entrega.
+          Você precisa de soluções que funcionem no mundo real, com suporte e evolução depois da entrega.
         </motion.p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
@@ -122,9 +111,6 @@ export default function WhyHireMe() {
           </a>
         </motion.div>
       </div>
-      {!isMobile && (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,800px)] h-64 bg-[var(--color-primary)]/[0.04] blur-[100px] rounded-full pointer-events-none" />
-      )}
     </section>
   )
 }

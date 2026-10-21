@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import { getWhatsAppUrl } from '../utils/whatsapp'
+import RevealWords from './RevealWords'
+
+const SOFT = [0.22, 1, 0.36, 1]
 
 const faqs = [
   {
@@ -10,7 +13,7 @@ const faqs = [
   },
   {
     q: 'Vocês fazem manutenção depois da entrega?',
-    a: 'Sim. Oferecemos suporte e evoluções conforme a necessidade do projeto — ajustes, novas funcionalidades e acompanhamento técnico.',
+    a: 'Sim. Oferecemos suporte e evoluções conforme a necessidade do projeto: ajustes, novas funcionalidades e acompanhamento técnico.',
   },
   {
     q: 'Como funciona o pagamento?',
@@ -22,7 +25,7 @@ const faqs = [
   },
   {
     q: 'Posso integrar com WhatsApp, planilhas ou ERP?',
-    a: 'Quando faz sentido tecnicamente, sim — integrações e automações fazem parte do que desenvolvemos, sempre com escopo definido.',
+    a: 'Quando faz sentido tecnicamente, sim. Integrações e automações fazem parte do que desenvolvemos, sempre com escopo definido.',
   },
 ]
 
@@ -30,9 +33,10 @@ export default function FAQ() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [open, setOpen] = useState(null)
+  const reduce = useReducedMotion()
 
   return (
-    <section id="faq" className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-12 lg:px-24 bg-[var(--color-surface)]" ref={ref}>
+    <section id="faq" className="below-fold relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-12 lg:px-24 bg-[var(--color-surface)]" ref={ref}>
       <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16">
         <motion.div
           className="lg:col-span-5"
@@ -40,11 +44,12 @@ export default function FAQ() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-[var(--color-navy)] mb-4">
-            FAQ
-          </h2>
+          <RevealWords
+            text="FAQ"
+            className="text-3xl sm:text-4xl font-display font-bold text-[var(--color-navy)] mb-4"
+          />
           <p className="text-[var(--color-muted)] text-lg leading-relaxed mb-8">
-            Dúvidas frequentes. Se precisar de mais detalhes, fale com a gente — respondemos pelo WhatsApp
+            Dúvidas frequentes. Se precisar de mais detalhes, fale com a gente. Respondemos pelo WhatsApp
             ou e-mail.
           </p>
           <a
@@ -74,9 +79,13 @@ export default function FAQ() {
                   aria-expanded={isOpen}
                 >
                   <span>{item.q}</span>
-                  <span className="flex-shrink-0 text-2xl text-[var(--color-muted)] w-8 text-center leading-none">
-                    {isOpen ? '−' : '+'}
-                  </span>
+                  <motion.span
+                    className="flex h-8 w-8 flex-shrink-0 items-center justify-center text-2xl leading-none text-[var(--color-muted)]"
+                    animate={{ rotate: isOpen ? 45 : 0 }}
+                    transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 420, damping: 26 }}
+                  >
+                    +
+                  </motion.span>
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
@@ -84,7 +93,14 @@ export default function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={
+                        reduce
+                          ? { duration: 0 }
+                          : {
+                              height: { type: 'spring', bounce: 0.16, duration: 0.48 },
+                              opacity: { duration: 0.28, ease: SOFT },
+                            }
+                      }
                       className="overflow-hidden"
                     >
                       <p className="pb-5 text-[var(--color-muted)] leading-relaxed pr-10">{item.a}</p>

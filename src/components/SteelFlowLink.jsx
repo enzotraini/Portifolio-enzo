@@ -29,7 +29,7 @@ export default function SteelFlowLink({ className = '', children, onNavigate }) 
       <button
         type="button"
         onClick={handleOpen}
-        className={`cursor-pointer border-0 bg-transparent p-0 text-left font-inherit ${className}`}
+        className={`cursor-pointer border-0 bg-transparent p-0 font-inherit ${className}`}
       >
         {children}
       </button>
@@ -51,7 +51,7 @@ export default function SteelFlowLink({ className = '', children, onNavigate }) 
                 Conhecer o SteelFlow
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
-                Você será redirecionado para conhecer outro sistema da EMT informática — o SteelFlow, nosso SaaS
+                Você será redirecionado para conhecer outro sistema da EMT informática: o SteelFlow, nosso SaaS
                 para gestão de cortes. Deseja continuar?
               </p>
               <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">

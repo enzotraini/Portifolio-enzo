@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import RevealWords from './RevealWords'
 
 const bullets = [
   'Sites institucionais e landing pages',
@@ -11,27 +12,16 @@ const bullets = [
 export default function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const [isMobile, setIsMobile] = useState(true)
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
 
   return (
     <section id="sobre" className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-12 lg:px-24 bg-[var(--color-surface)]" ref={ref}>
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div>
-          <motion.h2
+          <RevealWords
+            text="Sobre a EMT"
+            accent="EMT"
             className="text-3xl sm:text-4xl font-display font-bold text-[var(--color-navy)] mb-6"
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            Sobre a <span className="text-[var(--color-primary)]">EMT</span>
-          </motion.h2>
+          />
           <motion.div
             className="space-y-4 text-[var(--color-muted)] text-lg leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
@@ -44,7 +34,7 @@ export default function About() {
             </p>
             <p>
               Atuamos com diferentes segmentos: cada projeto nasce do que você precisa medir, automatizar
-              ou comunicar — sem soluções genéricas demais.
+              ou comunicar, sem soluções genéricas demais.
             </p>
           </motion.div>
         </div>
@@ -73,9 +63,6 @@ export default function About() {
           </ul>
         </motion.div>
       </div>
-      {!isMobile && (
-        <div className="absolute -z-10 top-1/2 right-0 w-72 h-72 rounded-full bg-[var(--color-primary)]/5 blur-[80px] pointer-events-none" />
-      )}
     </section>
   )
 }

@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { getWhatsAppUrl } from '../utils/whatsapp'
+import RevealWords from './RevealWords'
 
 export default function Contact() {
   const ref = useRef(null)
@@ -10,14 +11,11 @@ export default function Contact() {
   return (
     <section id="contato" className="py-20 sm:py-24 md:py-28 px-5 sm:px-6 md:px-12 lg:px-24 bg-[var(--color-surface)]" ref={ref}>
       <div className="max-w-3xl mx-auto text-center">
-        <motion.h2
+        <RevealWords
+          text="Fale com a EMT"
+          accent="EMT"
           className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4 text-[var(--color-navy)]"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-        >
-          Fale com a <span className="text-[var(--color-primary)]">EMT</span>
-        </motion.h2>
+        />
 
         <motion.p
           className="text-[var(--color-muted)] mb-2 text-lg"
@@ -25,7 +23,7 @@ export default function Contact() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.06 }}
         >
-          Conte o que precisa — respondemos pelo WhatsApp em horário comercial.
+          Conte o que precisa. Respondemos pelo WhatsApp em horário comercial.
         </motion.p>
         <motion.p
           className="text-sm text-[var(--color-muted)] mb-10"

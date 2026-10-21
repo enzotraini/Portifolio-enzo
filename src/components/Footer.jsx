@@ -25,8 +25,8 @@ export default function Footer() {
               >
                 {l.label}
               </a>
-            ) : l.to ? (
-              <Link to={l.to} className="text-sm text-[var(--color-navy)] hover:text-[var(--color-primary)] transition-colors">
+            ) : l.to || (typeof l.href === 'string' && l.href.startsWith('/#')) ? (
+              <Link to={l.to || l.href} className="text-sm text-[var(--color-navy)] hover:text-[var(--color-primary)] transition-colors">
                 {l.label}
               </Link>
             ) : (

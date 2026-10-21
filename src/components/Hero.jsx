@@ -4,6 +4,7 @@ import { getWhatsAppUrl } from '../utils/whatsapp'
 import { systemDemoVideo } from '../data/heroShowcase'
 import HeroClientMarquee from './HeroClientMarquee'
 import HeroLaptopVideo from './HeroLaptopVideo'
+import RevealWords from './RevealWords'
 
 export default function Hero() {
   const reduceMotion = useReducedMotion()
@@ -11,13 +12,15 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[min(100dvh,1100px)] flex-col overflow-x-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] via-[42%] to-[#120a8f]">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 h-[min(75vw,560px)] w-[min(130vw,880px)] -translate-x-1/2 rounded-full bg-indigo-400/15 blur-[100px]" />
-        <div className="absolute top-1/4 right-0 h-72 w-72 rounded-full bg-blue-400/10 blur-[90px]" />
-        <div className="absolute bottom-1/3 left-0 h-64 w-64 rounded-full bg-white/10 blur-[70px]" />
-      </div>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 42% at 50% -8%, rgba(129, 140, 248, 0.34), transparent 68%), radial-gradient(ellipse 26% 32% at 100% 26%, rgba(96, 165, 250, 0.16), transparent 70%), radial-gradient(ellipse 22% 28% at 0% 70%, rgba(255, 255, 255, 0.1), transparent 70%)',
+        }}
+      />
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 sm:px-8 md:px-12 lg:px-24 pt-32 pb-12 md:pb-16">
+      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 pt-32 pb-12 sm:px-8 md:px-12 md:pb-16 lg:px-24">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
             className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-300/95"
@@ -27,21 +30,20 @@ export default function Hero() {
           >
             Sites · Sistemas · Apps · Automação
           </motion.p>
-          <motion.h1
+          <RevealWords
+            as="h1"
+            trigger="mount"
+            delay={0.05}
+            text="Tecnologia que organiza seu negócio e escala com segurança"
             className="text-4xl font-display font-bold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl"
-            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-          >
-            Tecnologia que organiza seu negócio e escala com segurança
-          </motion.h1>
+          />
           <motion.p
             className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Da presença digital ao sistema no navegador — entregamos com clareza, prazo e suporte depois do go-live.
+            Da presença digital ao sistema no navegador. Entregamos com clareza, prazo e suporte depois do go-live.
           </motion.p>
 
           <motion.div
@@ -60,7 +62,7 @@ export default function Hero() {
             </a>
             <Link
               to="/sites"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-white/15"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/15 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-white/20"
             >
               Criação de sites
             </Link>
@@ -72,18 +74,16 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] px-5 pb-8 pt-10 sm:px-8 md:px-12 md:pb-10 md:pt-12 lg:px-24">
+      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] px-5 pt-10 pb-8 sm:px-8 md:px-12 md:pt-12 md:pb-10 lg:px-24">
         <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-5">
           O sistema em movimento
         </p>
-        <div className="relative z-20">
-          <HeroLaptopVideo
-            src={systemDemoVideo.src}
-            poster={systemDemoVideo.poster}
-            label={systemDemoVideo.label}
-            reduceMotion={reduceMotion}
-          />
-        </div>
+        <HeroLaptopVideo
+          src={systemDemoVideo.src}
+          poster={systemDemoVideo.poster}
+          label={systemDemoVideo.label}
+          reduceMotion={reduceMotion}
+        />
       </div>
     </section>
   )

@@ -7,8 +7,8 @@ export default function HeroLaptopVideo({ src, poster, label, reduceMotion = fal
   const videoRef = useRef(null)
   const [failed, setFailed] = useState(false)
   const [muted, setMuted] = useState(true)
-  const [shouldLoad, setShouldLoad] = useState(false)
-  const showStill = reduceMotion || failed || !shouldLoad
+  const [onScreen, setOnScreen] = useState(false)
+  const showStill = reduceMotion || failed
 
   useEffect(() => {
     if (reduceMotion) return
@@ -16,21 +16,28 @@ export default function HeroLaptopVideo({ src, poster, label, reduceMotion = fal
     if (!node) return
 
     if (!('IntersectionObserver' in window)) {
-      setShouldLoad(true)
-      return
+      const frame = requestAnimationFrame(() => setOnScreen(true))
+      return () => cancelAnimationFrame(frame)
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return
-        setShouldLoad(true)
-        observer.disconnect()
-      },
-      { rootMargin: '240px' },
+      ([entry]) => setOnScreen((entry?.intersectionRatio ?? 0) >= 0.35),
+      { threshold: [0, 0.35] },
     )
     observer.observe(node)
     return () => observer.disconnect()
   }, [reduceMotion])
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || showStill) return
+    if (onScreen) {
+      const play = video.play()
+      if (play && typeof play.catch === 'function') play.catch(() => {})
+    } else {
+      video.pause()
+    }
+  }, [onScreen, showStill])
 
   const attachVideo = useCallback((node) => {
     videoRef.current = node
@@ -73,7 +80,7 @@ export default function HeroLaptopVideo({ src, poster, label, reduceMotion = fal
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             aria-label={label}
             onError={() => setFailed(true)}
           />

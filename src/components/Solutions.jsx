@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import RevealWords from './RevealWords'
 
 const items = [
   {
@@ -50,21 +51,17 @@ export default function Solutions() {
         >
           O que entregamos
         </motion.p>
-        <motion.h2
+        <RevealWords
+          text="Soluções digitais para sua empresa crescer com segurança"
           className="text-center text-3xl sm:text-4xl font-display font-bold text-[var(--color-navy)] mb-4 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.05 }}
-        >
-          Soluções digitais para sua empresa crescer com segurança
-        </motion.h2>
+        />
         <motion.p
           className="text-center text-[var(--color-muted)] max-w-2xl mx-auto mb-14 text-lg"
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Da presença online à operação interna — um time próximo do seu negócio.
+          Da presença online à operação interna, com um time próximo do seu negócio.
         </motion.p>
         <div className="grid gap-6 md:grid-cols-3">
           {items.map((item, i) => (

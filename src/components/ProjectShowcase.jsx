@@ -9,16 +9,16 @@ const featured = [
     title: 'EMT',
     subtitle: 'Entrega em destaque · produto digital',
     description:
-      'Linha principal de entregas da EMT: experiência web consistente, foco em conversão e operação — referência do padrão que aplicamos nos projetos.',
+      'Linha principal de entregas da EMT: experiência web consistente, foco em conversão e operação. Referência do padrão que aplicamos nos projetos.',
     tags: ['EMT', 'Web', 'Produto'],
     image: '/images/projects/wide_screenshot_of_a_clean_saas_erp_style_dashboar.png',
-    imageAlt: 'EMT — referência de interface e produto digital',
+    imageAlt: 'EMT, referência de interface e produto digital',
   },
   {
     title: 'BLACKCAR Finance Hub',
     subtitle: 'Sistema · locação e financeiro',
     description:
-      'Painel completo com KPIs, receita, frota e fluxo de login — exemplo de produto em uso no dia a dia do cliente.',
+      'Painel completo com KPIs, receita, frota e fluxo de login. Exemplo de produto em uso no dia a dia do cliente.',
     tags: ['Sistema web', 'Financeiro', 'Dashboard'],
     image: '/images/projects/showcase-dashboard.png',
     imageAlt: 'BLACKCAR: dashboard com métricas e gráficos',
@@ -33,17 +33,17 @@ const sites = [
     description: 'Site institucional e presença digital para a operação Foodlight.',
     tags: ['Site', 'Foodlight'],
     image: '/images/projects/food-light.svg',
-    imageAlt: 'Mostruário — Foodlight',
+    imageAlt: 'Mostruário Foodlight',
   },
 ]
 
 const systems = [
   {
-    title: 'MMET — web app',
+    title: 'MMET web app',
     description: 'Aplicativo web para operação e gestão no ecossistema MMET.',
     tags: ['Web app', 'MMET'],
     image: '/images/projects/a_clean_high_resolution_screenshot_of_a_web_appli.png',
-    imageAlt: 'MMET — aplicativo web',
+    imageAlt: 'MMET, aplicativo web',
   },
 ]
 
@@ -155,7 +155,7 @@ export default function ProjectShowcase() {
           </h1>
           <p className="text-lg text-[var(--color-muted)] leading-relaxed mb-4">
             Seleção visual do tipo de trabalho que construímos: sites, sistemas e automações. As telas abaixo são
-            para referência e confiança — <strong className="text-[var(--color-navy)] font-semibold">endereços e demos ficam sob consulta</strong>.
+            para referência e confiança. <strong className="text-[var(--color-navy)] font-semibold">Endereços e demos ficam sob consulta</strong>.
           </p>
           <p className="text-sm text-[var(--color-muted)] border-l-4 border-[var(--color-primary)]/40 pl-4 py-1">
             Quando você enviar as imagens finais, substituímos as prévias em <code className="text-xs bg-slate-100 px-1.5 py-0.5 rounded">public/images/projects/</code> mantendo este layout.
@@ -198,7 +198,7 @@ export default function ProjectShowcase() {
             Fluxos, integrações e rotinas sob medida
           </p>
           <p className="text-[var(--color-muted)] leading-relaxed max-w-prose">
-            Também entregamos automações — de integrações entre ferramentas a fluxos que reduzem trabalho manual. Não
+            Também entregamos automações, de integrações entre ferramentas a fluxos que reduzem trabalho manual. Não
             há prévia visual pública deste tipo de entrega; em uma conversa explicamos escopo, ferramentas e exemplos
             de casos sem expor dados de clientes.
           </p>
@@ -214,7 +214,7 @@ export default function ProjectShowcase() {
           <div className="relative max-w-xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-display font-bold mb-3">Quer um projeto no mesmo nível?</h2>
             <p className="text-slate-300 text-sm sm:text-base mb-8 leading-relaxed">
-              Conte objetivo, prazo e segmento — retornamos com próximos passos, sem compromisso.
+              Conte objetivo, prazo e segmento. Retornamos com próximos passos, sem compromisso.
             </p>
             <a
               href={waHref}

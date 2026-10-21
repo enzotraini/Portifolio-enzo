@@ -1,7 +1,20 @@
+import { useEffect, useRef, useState } from 'react'
 import { heroClientLogos } from '../data/heroShowcase'
 
 export default function HeroClientMarquee({ lightText = true }) {
   const row = [...heroClientLogos, ...heroClientLogos]
+  const trackRef = useRef(null)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    const node = trackRef.current
+    if (!node || !('IntersectionObserver' in window)) return
+    const observer = new IntersectionObserver(([entry]) => {
+      setPaused(!entry?.isIntersecting)
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="w-full max-w-5xl mx-auto">
@@ -13,7 +26,7 @@ export default function HeroClientMarquee({ lightText = true }) {
         Empresas com as quais trabalhamos
       </p>
       <div className="relative overflow-hidden hero-marquee-mask py-2">
-        <div className="hero-marquee-track">
+        <div ref={trackRef} className={`hero-marquee-track${paused ? ' is-paused' : ''}`}>
           {row.map((logo, i) => (
             <div
               key={`${logo.label}-${logo.src ?? 't'}-${i}`}
