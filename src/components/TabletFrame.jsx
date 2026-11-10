@@ -22,7 +22,7 @@ export default function TabletFrame({
         }}
       >
         <motion.div
-          className={`relative aspect-video ${compact ? 'w-[min(100%,420px)]' : 'w-[min(100%,980px)]'}`}
+          className={`relative aspect-video ${compact ? 'w-[min(100%,420px)]' : 'w-[min(100%,860px)]'}`}
           style={{
             transformOrigin: '50% 100%',
             rotateX: tilt,

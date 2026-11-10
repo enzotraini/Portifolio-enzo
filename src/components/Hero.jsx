@@ -45,21 +45,21 @@ export default function Hero() {
               className="pointer-events-auto mx-auto max-w-4xl"
               style={reduceMotion ? undefined : { opacity: copyOpacity, y: copyY }}
             >
-              <p className="font-display text-[clamp(3.4rem,8.5vw,7rem)] font-semibold leading-none tracking-[-0.07em] text-white">
+              <p className="font-display text-[clamp(2.85rem,6.5vw,5.5rem)] font-semibold leading-none tracking-[-0.07em] text-white">
                 EMT
               </p>
-              <h1 className="mt-5 font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+              <h1 className="mt-4 font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl lg:text-[2.15rem]">
                 Tecnologia que organiza o negócio.
               </h1>
-              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl">
+              <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
                 Sites, sistemas e automação — com prazo claro e suporte depois do go-live.
               </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
                 <a
                   href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-[#1d4ed8] transition-colors hover:bg-white/90"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#1d4ed8] transition-colors hover:bg-white/90"
                 >
                   Falar no WhatsApp
                 </a>

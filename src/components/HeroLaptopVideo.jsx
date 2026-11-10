@@ -32,7 +32,7 @@ export default function HeroLaptopVideo({
   const progress = scrollProgress ?? idleProgress
 
   const tiltRaw = useTransform(progress, [0, 0.7], [18, 0])
-  const scale = useTransform(progress, [0, 0.8], [compact ? 0.92 : 0.62, compact ? 1 : 1.04])
+  const scale = useTransform(progress, [0, 0.8], [compact ? 0.92 : 0.7, compact ? 1 : 1.04])
   const lift = useTransform(progress, [0, 0.74], [compact ? 18 : 28, compact ? -16 : -80])
   const videoFade = useTransform(progress, [0.2, 0.5], [0, 1])
   const glassFade = useTransform(progress, [0.12, 0.44], [1, 0])
