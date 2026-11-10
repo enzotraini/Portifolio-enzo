@@ -86,3 +86,119 @@
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
+
+.hero-foam-base {
+  background: linear-gradient(180deg, #1736b8 0%, #1d4ed8 42%, #2563eb 78%, #1e40af 100%);
+}
+
+.hero-foam-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.hero-foam-a {
+  width: 58vw;
+  height: 58vw;
+  left: -14%;
+  top: -22%;
+  background: #38bdf8;
+  opacity: 0.42;
+}
+
+.hero-foam-b {
+  width: 48vw;
+  height: 48vw;
+  right: -12%;
+  top: 6%;
+  background: #818cf8;
+  opacity: 0.48;
+}
+
+.hero-foam-c {
+  width: 62vw;
+  height: 44vw;
+  left: 18%;
+  bottom: -24%;
+  background: #60a5fa;
+  opacity: 0.4;
+}
+
+.hero-foam-d {
+  width: 28vw;
+  height: 28vw;
+  left: 42%;
+  top: 28%;
+  background: #93c5fd;
+  opacity: 0.28;
+}
+
+.hero-foam-move-a {
+  animation: hero-foam-a 18s ease-in-out infinite;
+}
+
+.hero-foam-move-b {
+  animation: hero-foam-b 22s ease-in-out infinite;
+}
+
+.hero-foam-move-c {
+  animation: hero-foam-c 16s ease-in-out infinite;
+}
+
+.hero-foam-move-d {
+  animation: hero-foam-d 12s ease-in-out infinite;
+}
+
+@keyframes hero-foam-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(14%, 16%) scale(1.16);
+  }
+}
+
+@keyframes hero-foam-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-12%, 10%) scale(1.12);
+  }
+}
+
+@keyframes hero-foam-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate(-10%, -14%) scale(1.2);
+  }
+}
+
+@keyframes hero-foam-d {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.32;
+  }
+  50% {
+    transform: translate(8%, -12%) scale(1.25);
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-foam-move-a,
+  .hero-foam-move-b,
+  .hero-foam-move-c,
+  .hero-foam-move-d {
+    animation: none;
+  }
+}
+

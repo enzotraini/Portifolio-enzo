@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import { STEELFLOW_URL } from '../utils/links'
 import SteelFlowLink from './SteelFlowLink'
-import NavDock from './NavDock'
 
 const links = [
   { to: '/sistema-gestao', label: 'EMT ERP' },
@@ -98,29 +97,20 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [pastHero, setPastHero] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [section, setSection] = useState(null)
   const location = useLocation()
   const isHome = location.pathname === '/'
-  const useLightNav = scrolled || !isHome || mobileOpen
-  const routeActive =
-    location.pathname === '/sistema-gestao'
-      ? 'erp'
-      : location.pathname === '/crm'
-        ? 'crm'
-        : location.pathname === '/sites'
-          ? 'sites'
-          : null
-  const dockActive = routeActive || (isHome ? section : null)
-  const showDock = isHome && pastHero
+  const useLightNav = !isHome || pastHero || mobileOpen
 
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY
       const nextScrolled = y > 20
-      const heroLimit = Math.min(window.innerHeight, 1100) * 0.82
-      const nextDock = y > heroLimit
+      const hero = document.getElementById('hero')
+      const nextPastHero = hero
+        ? hero.getBoundingClientRect().bottom < 72
+        : y > Math.min(window.innerHeight, 1100) * 0.82
       setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
-      setPastHero((current) => (current === nextDock ? current : nextDock))
+      setPastHero((current) => (current === nextPastHero ? current : nextPastHero))
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -131,30 +121,6 @@ export default function Navbar() {
     }
   }, [])
 
-  useEffect(() => {
-    if (!isHome) return
-
-    const nodes = ['sobre', 'contato'].map((id) => document.getElementById(id)).filter(Boolean)
-    if (!nodes.length) return
-
-    const seen = new Map()
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) seen.set(entry.target.id, entry.intersectionRatio)
-          else seen.delete(entry.target.id)
-        })
-        const best = [...seen.entries()].sort((a, b) => b[1] - a[1])[0]
-        const next = best ? best[0] : null
-        setSection((current) => (current === next ? current : next))
-      },
-      { rootMargin: '-42% 0px -48% 0px', threshold: [0, 0.2, 0.5] },
-    )
-
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
-  }, [isHome])
-
   const supportClass = supportBtnClass(useLightNav)
 
   return (
@@ -163,7 +129,9 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           useLightNav
             ? 'bg-white border-b border-[var(--color-border)] shadow-sm'
-            : 'border-b border-transparent bg-transparent'
+            : scrolled
+              ? 'border-b border-white/10 bg-[#1d4ed8]/55 backdrop-blur-md'
+              : 'border-b border-transparent bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -186,22 +154,11 @@ export default function Navbar() {
           </div>
 
           <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-            <AnimatePresence initial={false}>
-              {!showDock && (
-                <motion.div
-                  key="links"
-                  className="flex items-center gap-5 xl:gap-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {links.map((link) => (
-                    <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="flex items-center gap-5 xl:gap-8">
+              {links.map((link) => (
+                <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
+              ))}
+            </div>
           </div>
 
           {/* Direita: CTAs ou menu */}
@@ -238,22 +195,6 @@ export default function Navbar() {
           </div>
         </nav>
       </motion.header>
-
-      <AnimatePresence initial={false}>
-        {showDock && (
-          <motion.div
-            key="dock"
-            className="fixed top-1/2 z-40 hidden -translate-y-1/2 lg:block"
-            style={{ left: 'max(0.75rem, env(safe-area-inset-left))' }}
-            initial={{ x: -28, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -28, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <NavDock tone="light" activeId={dockActive} vertical />
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <AnimatePresence>
         {mobileOpen && (

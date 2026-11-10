@@ -1,90 +1,85 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 import { systemDemoVideo } from '../data/heroShowcase'
+import HeroAtmosphere from './HeroAtmosphere'
 import HeroClientMarquee from './HeroClientMarquee'
 import HeroLaptopVideo from './HeroLaptopVideo'
-import RevealWords from './RevealWords'
 
 export default function Hero() {
   const reduceMotion = useReducedMotion()
   const waHref = getWhatsAppUrl('Olá! Gostaria de conversar sobre um projeto para minha empresa.')
+  const stageRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ['start start', 'end end'],
+  })
+
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.1, 0.34], [1, 0.9, 0])
+  const copyY = useTransform(scrollYProgress, [0, 0.34], [0, -28])
 
   return (
-    <section className="relative flex min-h-[min(100dvh,1100px)] flex-col overflow-x-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] via-[42%] to-[#120a8f]">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 55% 42% at 50% -8%, rgba(129, 140, 248, 0.34), transparent 68%), radial-gradient(ellipse 26% 32% at 100% 26%, rgba(96, 165, 250, 0.16), transparent 70%), radial-gradient(ellipse 22% 28% at 0% 70%, rgba(255, 255, 255, 0.1), transparent 70%)',
-        }}
-      />
+    <section id="hero" className="relative bg-[#1d4ed8] text-white">
+      <HeroAtmosphere />
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 pt-32 pb-12 sm:px-8 md:px-12 md:pb-16 lg:px-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.p
-            className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-sky-300/95"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-          >
-            Sites · Sistemas · Apps · Automação
-          </motion.p>
-          <RevealWords
-            as="h1"
-            trigger="mount"
-            delay={0.05}
-            text="Tecnologia que organiza seu negócio e escala com segurança"
-            className="text-4xl font-display font-bold leading-[1.12] tracking-tight text-white sm:text-5xl lg:text-6xl"
-          />
-          <motion.p
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            Da presença digital ao sistema no navegador. Entregamos com clareza, prazo e suporte depois do go-live.
-          </motion.p>
+      <div ref={stageRef} className={reduceMotion ? 'relative min-h-svh' : 'relative h-[240svh]'}>
+        <div className={reduceMotion ? 'relative min-h-svh' : 'sticky top-0 h-svh overflow-hidden'}>
+          <div className="absolute inset-x-0 -bottom-[7%] top-36 flex items-end px-5 sm:px-8">
+            <HeroLaptopVideo
+              src={systemDemoVideo.src}
+              poster={systemDemoVideo.poster}
+              label={systemDemoVideo.label}
+              reduceMotion={reduceMotion}
+              scrollProgress={reduceMotion ? undefined : scrollYProgress}
+            />
+          </div>
 
           <motion.div
-            className="mt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            className="pointer-events-none absolute inset-x-0 top-0 z-20 flex h-[calc(100svh-17.75rem-32px)] flex-col items-center justify-end px-5 pb-3 pt-24 text-center sm:px-8 md:h-[calc(100svh-18rem-32px)] md:pb-4"
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#2563eb] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition-colors hover:bg-blue-500"
+            <motion.div
+              className="pointer-events-auto mx-auto max-w-4xl"
+              style={reduceMotion ? undefined : { opacity: copyOpacity, y: copyY }}
             >
-              Falar no WhatsApp
-            </a>
-            <Link
-              to="/sites"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/25 bg-white/15 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-white/20"
-            >
-              Criação de sites
-            </Link>
+              <p className="font-display text-[clamp(3.4rem,8.5vw,7rem)] font-semibold leading-none tracking-[-0.07em] text-white">
+                EMT
+              </p>
+              <h1 className="mt-5 font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+                Tecnologia que organiza o negócio.
+              </h1>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl">
+                Sites, sistemas e automação — com prazo claro e suporte depois do go-live.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+                <a
+                  href={waHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-[#1d4ed8] transition-colors hover:bg-white/90"
+                >
+                  Falar no WhatsApp
+                </a>
+                <Link
+                  to="/sites"
+                  className="text-base font-medium text-white/80 transition-colors hover:text-white"
+                >
+                  Criação de sites
+                </Link>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
-
-        <div className="mx-auto mt-16 w-full max-w-5xl md:mt-24">
-          <HeroClientMarquee lightText />
-        </div>
       </div>
 
-      <div className="relative z-20 bg-gradient-to-b from-[#191970] to-[var(--color-void)] px-5 pt-10 pb-8 sm:px-8 md:px-12 md:pt-12 md:pb-10 lg:px-24">
-        <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200/75 md:mb-5">
-          O sistema em movimento
-        </p>
-        <HeroLaptopVideo
-          src={systemDemoVideo.src}
-          poster={systemDemoVideo.poster}
-          label={systemDemoVideo.label}
-          reduceMotion={reduceMotion}
-        />
+      <div className="h-[12vh] md:h-[14vh]" aria-hidden />
+      <div className="relative px-5 pb-16 sm:px-8 md:px-12 lg:px-24">
+        <HeroClientMarquee lightText />
       </div>
+      <div className="pointer-events-none h-24 bg-gradient-to-b from-transparent to-[var(--color-void)]" />
     </section>
   )
 }

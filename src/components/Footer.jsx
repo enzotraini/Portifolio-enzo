@@ -3,88 +3,151 @@ import { Link } from 'react-router-dom'
 import { STEELFLOW_URL } from '../utils/links'
 import SteelFlowLink from './SteelFlowLink'
 
-export default function Footer() {
-  const year = new Date().getFullYear()
+const linkClass =
+  'text-sm font-medium uppercase tracking-wide text-white/85 transition-colors hover:text-white'
 
-  const col = (title, links) => (
+function FooterLink({ item }) {
+  if (item.confirmRedirect) {
+    return (
+      <SteelFlowLink className={linkClass}>{item.label}</SteelFlowLink>
+    )
+  }
+
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={linkClass}
+      >
+        {item.label}
+      </a>
+    )
+  }
+
+  if (item.to || (typeof item.href === 'string' && item.href.startsWith('/#'))) {
+    return (
+      <Link to={item.to || item.href} className={linkClass}>
+        {item.label}
+      </Link>
+    )
+  }
+
+  return (
+    <a href={item.href} className={linkClass}>
+      {item.label}
+    </a>
+  )
+}
+
+function FooterCol({ title, links }) {
+  return (
     <div>
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] mb-4">{title}</h3>
+      <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-white">
+        {title}
+      </h3>
       <ul className="space-y-3">
-        {links.map((l) => (
-          <li key={(l.to || l.href) + l.label}>
-            {l.confirmRedirect ? (
-              <SteelFlowLink className="text-sm text-[var(--color-navy)] transition-colors hover:text-[var(--color-primary)]">
-                {l.label}
-              </SteelFlowLink>
-            ) : l.external ? (
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-[var(--color-navy)] hover:text-[var(--color-primary)] transition-colors"
-              >
-                {l.label}
-              </a>
-            ) : l.to || (typeof l.href === 'string' && l.href.startsWith('/#')) ? (
-              <Link to={l.to || l.href} className="text-sm text-[var(--color-navy)] hover:text-[var(--color-primary)] transition-colors">
-                {l.label}
-              </Link>
-            ) : (
-              <a href={l.href} className="text-sm text-[var(--color-navy)] hover:text-[var(--color-primary)] transition-colors">
-                {l.label}
-              </a>
-            )}
+        {links.map((item) => (
+          <li key={(item.to || item.href) + item.label}>
+            <FooterLink item={item} />
           </li>
         ))}
       </ul>
     </div>
   )
+}
+
+export default function Footer() {
+  const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface-muted)]/60">
-      <div className="px-5 sm:px-6 md:px-12 lg:px-24 py-12 sm:py-16 max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
-          <div className="col-span-2 md:col-span-1">
-            <p className="font-display font-bold text-xl text-[var(--color-navy)] mb-3">EMT</p>
-            <p className="text-sm text-[var(--color-muted)] leading-relaxed max-w-xs">
-              Sites, sistemas web, aplicativos e automação para empresas.
-            </p>
+    <footer className="relative overflow-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] via-[42%] to-[#120a8f] text-white">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 42% at 50% -8%, rgba(129, 140, 248, 0.28), transparent 68%), radial-gradient(ellipse 26% 32% at 100% 26%, rgba(96, 165, 250, 0.14), transparent 70%), radial-gradient(ellipse 22% 28% at 0% 70%, rgba(255, 255, 255, 0.08), transparent 70%)',
+        }}
+      />
+
+      <div className="relative z-10 px-5 pb-0 pt-14 sm:px-6 sm:pt-16 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+            >
+              <p className="max-w-[12ch] font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+                Fique por dentro
+              </p>
+            </motion.div>
+
+            <FooterCol
+              title="Soluções"
+              links={[
+                { href: '/#solucoes', label: 'O que entregamos' },
+                { to: '/sistema-gestao', label: 'EMT ERP' },
+                { to: '/crm', label: 'EMT CRM' },
+                { href: STEELFLOW_URL, label: 'SteelFlow SaaS', confirmRedirect: true },
+                { to: '/sites', label: 'Criador de sites' },
+                { href: '/#como-trabalhamos', label: 'Como trabalhamos' },
+              ]}
+            />
+            <FooterCol
+              title="Empresa"
+              links={[
+                { href: '/#sobre', label: 'Sobre' },
+                { href: '/#diferenciais', label: 'Diferenciais' },
+                { href: '/#faq', label: 'FAQ' },
+              ]}
+            />
+            <FooterCol
+              title="Contato"
+              links={[
+                { href: '/#contato', label: 'Fale conosco' },
+                { href: 'mailto:enzotraini8@gmail.com', label: 'E-mail', external: true },
+                {
+                  href: 'https://github.com/enzotraini',
+                  label: 'GitHub',
+                  external: true,
+                },
+              ]}
+            />
           </div>
-          {col('Soluções', [
-            { href: '/#solucoes', label: 'O que entregamos' },
-            { to: '/sistema-gestao', label: 'EMT ERP' },
-            { to: '/crm', label: 'EMT CRM' },
-            { href: STEELFLOW_URL, label: 'SteelFlow SaaS', confirmRedirect: true },
-            { to: '/sites', label: 'Criador de sites' },
-            { href: '/#como-trabalhamos', label: 'Como trabalhamos' },
-          ])}
-          {col('Empresa', [
-            { href: '/#sobre', label: 'Sobre' },
-            { href: '/#diferenciais', label: 'Diferenciais' },
-            { href: '/#faq', label: 'FAQ' },
-          ])}
-          {col('Contato', [
-            { href: '/#contato', label: 'Fale conosco' },
-            { href: 'mailto:enzotraini8@gmail.com', label: 'E-mail', external: true },
-            {
-              href: 'https://github.com/enzotraini',
-              label: 'GitHub',
-              external: true,
-            },
-          ])}
+
+          <motion.div
+            className="mt-14 flex flex-col gap-3 sm:mt-16 sm:flex-row sm:items-center sm:justify-between"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            <p className="text-sm text-white/70">
+              © {year}. Todos os direitos reservados.
+            </p>
+            <a
+              href="#"
+              className="text-sm text-white/70 transition-colors hover:text-white"
+            >
+              Política de privacidade
+            </a>
+          </motion.div>
         </div>
+
         <motion.div
-          className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          className="pointer-events-none mt-10 select-none overflow-hidden sm:mt-12"
+          aria-hidden="true"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-[var(--color-muted)] text-sm text-center sm:text-left">
-            © {year} EMT. Todos os direitos reservados.
+          <p className="translate-y-[18%] text-center font-display text-[min(42vw,18rem)] font-bold leading-none tracking-[-0.06em] text-white">
+            EMT
           </p>
-          <a href="#" className="text-sm text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors">
-            Política de privacidade
-          </a>
         </motion.div>
       </div>
     </footer>
