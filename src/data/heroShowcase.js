@@ -21,13 +21,6 @@ export const heroClientLogos = [
   { label: 'Viação Planeta' },
 ]
 
-/** Motion do sistema, reproduzido dentro da tela do computador no hero. */
-export const systemDemoVideo = {
-  src: '/videos/emt-sistema.mp4',
-  poster: '/images/projects/emt-sistema-dashboard.jpg',
-  label: 'Demonstração em motion do sistema comercial e fiscal EMT',
-}
-
 /** Capturas do sistema. Galeria em /sistema-gestao */
 export const systemScreens = [
   {
