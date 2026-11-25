@@ -1,38 +1,38 @@
-import { EMT_CRM_URL, EMT_SYSTEM_URL } from '../utils/links'
+import { EMT_CRM_URL, EMT_SYSTEM_URL, STEELFLOW_URL } from '../utils/links'
 
 export const produtos = [
   {
     id: 'erp',
     nome: 'EMT ERP',
-    area: 'Gestão',
     texto: 'Financeiro, faturamento, NF-e, clientes e vendas numa plataforma web, com os dados da operação em tempo real.',
-    resumo: 'Cotação, pedido, nota e financeiro.',
-    itens: ['Financeiro e faturamento', 'Clientes e atendimento', 'NF-e e estoque', 'Relatórios gerenciais'],
+    itens: ['Atendimento, cotação e pedido', 'Liberação de preço', 'NF-e e contas a receber', 'Estoque por corrida, no kardex'],
     pagina: '/sistema-gestao',
     acesso: EMT_SYSTEM_URL,
     whatsapp: 'Olá! Tenho interesse no EMT ERP e gostaria de uma demonstração.',
-    torre: '/images/emt3d/torre-erp.webp',
+    tela: '/images/sistemas/tela-erp.webp',
   },
   {
     id: 'crm',
     nome: 'EMT CRM',
-    area: 'Comercial',
     texto: 'Recebe a cotação do ERP e organiza o follow-up até o contato com o cliente. A Maya acompanha cada passo.',
-    resumo: 'Follow-up de cada cotação, com a Maya.',
-    itens: ['Cotações que chegam do ERP', 'Da cotação ao contato', 'Maya no acompanhamento', 'Carteira e histórico'],
+    itens: ['Cotações que chegam do ERP', 'Negociações por etapa', 'Tarefas e follow-up do dia', 'Maya no acompanhamento'],
     pagina: '/crm',
     acesso: EMT_CRM_URL,
     whatsapp: 'Olá! Tenho interesse no EMT CRM e gostaria de uma demonstração.',
-    torre: '/images/emt3d/torre-crm.webp',
+    tela: '/images/sistemas/tela-crm.webp',
   },
   {
     id: 'steelflow',
     nome: 'SteelFlow',
-    area: 'Chão de fábrica',
     texto: 'Do pedido no ERP à fila do operador na serra, com lote, retalho e conferência de peso até a liberação.',
-    resumo: 'O pedido vira tarefa na fila da serra.',
     itens: ['Tarefas por operador e serra', 'Lote, retalho e sucata', 'Conferência na balança', 'Painel do gestor'],
+    site: STEELFLOW_URL,
     whatsapp: 'Olá! Tenho interesse no SteelFlow e gostaria de uma demonstração.',
-    torre: '/images/emt3d/torre-steelflow.webp',
+    tela: '/images/sistemas/tela-steelflow.webp',
   },
+]
+
+export const empresas = [
+  'Food Light', 'Raio Comercial', 'Aços Iguatemi', 'BLACKCAR', 'EMT Consultoria', 'Agropecuária', 'Multiço', 'Starkvale',
+  'Viação Águia Branca', 'Viação Salutaris', 'Viação Cidade Sol', 'Viação Rota', 'Viação Jequié Cidade Sol', 'Viação Brasileiro', 'Viação Vix', 'Viação Planeta',
 ]

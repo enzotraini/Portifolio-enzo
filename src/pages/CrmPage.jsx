@@ -1,160 +1,80 @@
-import { useEffect } from 'react'
-import Footer from '../components/Footer'
-import { EMT_CRM_URL } from '../utils/links'
+import Degrade from '../components/Degrade'
+import Janela from '../components/Janela'
+import PaginaProduto, { Bloco, BlocoLargo, Lista, Palco } from '../components/PaginaProduto'
+import { produtos } from '../data/produtos'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
-const DEFAULT_TITLE = 'EMT Informática | ERP, CRM e software para empresas'
-
-const modules = [
-  {
-    title: 'Cotações que chegam do ERP',
-    description:
-      'A cotação sai da operação e aparece no comercial. O time vê o que chegou, de quem é e o que ainda precisa de retorno.',
-  },
-  {
-    title: 'Da cotação ao contato',
-    description:
-      'Cada passo da negociação fica no mesmo lugar: quem falou, quando falou e o que falta para fechar.',
-  },
-  {
-    title: 'Maya no acompanhamento',
-    description:
-      'A Maya acompanha o fluxo para o comercial não perder follow-up nem deixar cotação parada.',
-  },
-  {
-    title: 'Carteira e histórico',
-    description:
-      'Cliente, conversas e status da negociação juntos, sem planilha paralela e sem retrabalho de cadastro.',
-  },
-]
-
-const diferencials = [
-  'Cotação que chega direto do EMT ERP',
-  'Sistema web acessível de qualquer lugar',
-  'Implementação com suporte próximo',
-  'Histórico do comercial em um só lugar',
-]
+const crm = produtos.find((p) => p.id === 'crm')
+const verde = { frio: [0.03, 0.58, 0.36], brilho: [0.7, 1, 0.86], quente: [0.04, 0.3, 0.42] }
+const img = (nome, alt, w, h) => ({ src: `/images/sistemas/crm-${nome}.webp`, alt, w, h })
 
 export default function CrmPage() {
-  const waHref = getWhatsAppUrl(
-    'Olá! Tenho interesse no EMT CRM e gostaria de uma demonstração.',
-  )
-
-  useEffect(() => {
-    document.title = 'EMT CRM | EMT Informática'
-    return () => {
-      document.title = DEFAULT_TITLE
-    }
-  }, [])
-
   return (
-    <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] to-[#120a8f] px-5 pb-18 pt-30 sm:px-6 md:px-12 md:pt-34 lg:px-24">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 45% at 50% 0%, rgba(165, 180, 252, 0.28), transparent 68%), radial-gradient(ellipse 24% 30% at 100% 88%, rgba(147, 197, 253, 0.2), transparent 70%)',
-          }}
-        />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-center">
+    <PaginaProduto
+      nome="EMT CRM"
+      titulo="Da cotação ao contato. O comercial ligado à operação."
+      texto="O EMT CRM recebe a cotação do ERP e organiza o follow-up até o contato com o cliente. A Maya acompanha cada passo para nada ficar parado."
+      cores={verde}
+      tela={img('visao', 'Visão geral do EMT CRM: valor em aberto, cotações por semana e funil por etapa', 1600, 923)}
+      acesso={crm.acesso}
+      whatsapp={getWhatsAppUrl(crm.whatsapp)}
+      contato={{ titulo: 'Quer ver o EMT CRM na sua operação?', mensagem: crm.whatsapp }}
+    >
+      <BlocoLargo
+        titulo="A cotação sai do ERP e aparece aqui."
+        texto="Ninguém redigita nada. Cada cotação vira um negócio na etapa certa, com valor, peso em toneladas, preço por quilo e quem está atendendo."
+        tela={img('pipeline', 'Negociações por etapa: proposta, negociação, ganho e perdido', 1600, 750)}
+        fundo="verde"
+      />
+      <Bloco
+        titulo="Tudo da negociação numa ficha só."
+        texto="Abriu o negócio, está tudo ali: o que foi cotado, com quem falar e qual o próximo passo."
+        itens={['Valor, probabilidade e previsão', 'Peso, preço médio por quilo e linha', 'Proposta por e-mail ou WhatsApp', 'Contato do cliente e registro da conversa']}
+        tela={img('negocio', 'Ficha da negociação com a Caldeiraria Norte', 920, 1000)}
+        fundo="verde"
+        estreita
+        inverter
+      />
+      <BlocoLargo
+        titulo="O dia já começa organizado."
+        texto="As tarefas vêm da equipe e do próprio ERP: cotação parada, preço liberado, cliente sem retorno. Atrasadas primeiro, depois hoje, depois a semana."
+        tela={img('tarefas', 'Tarefas separadas em atrasadas, hoje e próximos sete dias', 1600, 750)}
+        fundo="verde"
+      />
+
+      <section className="px-5 pt-32 sm:px-8 lg:px-14 lg:pt-52">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/90">
-              EMT CRM
-            </p>
-            <h1 className="text-4xl font-display font-bold leading-tight text-white sm:text-5xl">
-              Da cotação ao contato. O comercial ligado à operação.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg">
-              O EMT CRM recebe a cotação do ERP e organiza o follow-up até o contato com o cliente.
-              A Maya acompanha cada passo para nada ficar parado.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href={EMT_CRM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
-              >
-                Acessar sistema
-              </a>
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/30 bg-white/15 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
-              >
-                Agendar demonstração
-              </a>
-            </div>
-          </div>
-          <aside className="rounded-3xl border border-white/20 bg-white/15 p-6 shadow-2xl sm:p-8">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-200/95">No fluxo</p>
-            <ul className="mt-5 space-y-3">
-              {diferencials.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-relaxed text-white/90 sm:text-base">
-                  <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-300" />
-                  <span>{item}</span>
-                </li>
-              ))}
+            <div className="h-28 w-28 overflow-hidden rounded-full lg:h-36 lg:w-36"><Degrade {...verde} zoom={1.9} /></div>
+            <h2 className="titulo mt-8 text-[clamp(2.6rem,5vw,5rem)]">Pergunte para a Maya.</h2>
+            <p className="mt-5 max-w-[32rem] text-lg leading-relaxed text-nevoa">Ela lê o CRM e o ERP e responde com o que está na sua carteira: o que pode fechar agora, por onde começar, quem parou de comprar. E prepara o rascunho da mensagem.</p>
+            <ul className="mt-7 grid gap-1 text-[1.35rem] text-gelo">
+              <li>“O que pode fechar agora?”</li>
+              <li>“Por onde começar hoje?”</li>
+              <li>“Preparar um follow-up”</li>
             </ul>
-          </aside>
-        </div>
-      </section>
-
-      <section className="bg-[var(--color-void)] px-5 py-20 sm:px-6 md:px-12 md:py-24 lg:px-24">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)]">
-            Funcionalidades
-          </p>
-          <h2 className="mt-3 max-w-3xl text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
-            Feito para o comercial que já usa o EMT ERP
-          </h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {modules.map((module) => (
-              <article
-                key={module.title}
-                className="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-xl font-display font-bold text-[var(--color-navy)]">{module.title}</h3>
-                <p className="mt-3 text-[var(--color-muted)] leading-relaxed">{module.description}</p>
-              </article>
-            ))}
           </div>
+          <Palco fundo="verde"><Janela {...img('maya', 'Resposta da Maya com os próximos passos do dia', 1200, 840)} /></Palco>
         </div>
       </section>
 
-      <section className="bg-white px-5 pb-20 sm:px-6 md:px-12 md:pb-24 lg:px-24">
-        <div className="mx-auto max-w-6xl rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-8 sm:p-10 md:p-12">
-          <h2 className="text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
-            Quer ver o EMT CRM na sua operação?
-          </h2>
-          <p className="mt-4 max-w-3xl text-[var(--color-muted)] leading-relaxed">
-            Mostramos o caminho da cotação até o contato, com a Maya no acompanhamento, a partir do
-            que o seu time já faz no ERP.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
-            >
-              Falar com especialista
-            </a>
-            <a
-              href={EMT_CRM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] bg-white px-7 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:bg-[var(--color-surface)]"
-            >
-              Ir para login
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </>
+      <BlocoLargo
+        titulo="Quem compra, quem decide, quem sumiu."
+        texto="Cliente, conversas e status da negociação juntos, sem planilha paralela e sem retrabalho de cadastro. Último contato, canal preferido e cotações abertas de cada comprador."
+        fundo="verde"
+        tela={img('contatos', 'Lista de contatos com o resumo de um comprador', 1600, 1000)}
+      />
+      <Lista
+        titulo="Também no EMT CRM"
+        itens={[
+          ['Nova cotação', 'Abra a cotação pelo próprio CRM. Preço, crédito e regras continuam no ERP.'],
+          ['Registro por voz', 'Terminou a visita ou a ligação? Dite o resumo e ele vira registro.'],
+          ['Sincronização com o ERP', 'O sistema mostra quando sincronizou e deixa puxar na hora.'],
+          ['Busca rápida', 'Empresa, contato ou cotação, de qualquer tela.'],
+          ['Exportação', 'Leve os dados em CSV para o Excel ou o Google Planilhas.'],
+          ['Acesso web', 'Funciona no navegador, com tema claro ou escuro.'],
+        ]}
+      />
+    </PaginaProduto>
   )
 }

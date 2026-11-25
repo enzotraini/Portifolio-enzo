@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-body: "Schibsted Grotesk", system-ui, sans-serif;
   --color-void: #f8fafc;
   --color-surface: #ffffff;
   --color-surface-muted: #f1f5f9;
@@ -15,6 +15,12 @@
   --color-accent-dim: rgba(5, 150, 105, 0.12);
   --color-muted: #64748b;
   --color-foreground: #0f172a;
+  --color-noite: #060a12;
+  --color-tinta: #0a1322;
+  --color-claro: #f2f5fa;
+  --color-gelo: #d9e2ee;
+  --color-nevoa: #a3b0c3;
+  --color-apagado: #7a8799;
 }
 
 @layer base {
@@ -23,6 +29,7 @@
     box-sizing: border-box;
   }
   html {
+    background: #060a12;
     scroll-padding-top: 5.5rem;
     min-height: 100%;
     -webkit-text-size-adjust: 100%;
@@ -56,41 +63,90 @@
   contain-intrinsic-size: auto 720px;
 }
 
-/* Hero: ticker de logos (marquee infinito) */
-@keyframes hero-marquee {
-  0% {
-    transform: translateX(0);
+.titulo {
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid #7ea9ff;
+  outline-offset: 3px;
+}
+
+/* Galpão: o texto aparece quando a câmera para em cada trecho (--o e --y vêm do scroll) */
+.galpao-vivo .trecho > *,
+.galpao-vivo .trecho-hero > * {
+  opacity: var(--o, 0);
+  transform: translateY(var(--y, 0));
+}
+.galpao-vivo .trecho-hero > * {
+  opacity: var(--o, 1);
+}
+/* o link cai onde a câmera para, no meio do trecho */
+.galpao-vivo .ancora {
+  top: calc(45svh + 5.5rem);
+}
+.galpao-fundo {
+  background: radial-gradient(60% 70% at 20% 85%, #14306e 0, transparent 70%), radial-gradient(40% 50% at 80% 30%, #4a2412 0, transparent 70%), #060a12;
+}
+.trecho {
+  isolation: isolate;
+}
+.trecho::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: var(--o, 1);
+}
+.trecho-esq::before {
+  background: radial-gradient(70% 95% at 8% 50%, rgba(5, 10, 20, 0.88), rgba(5, 10, 20, 0.5) 46%, transparent 74%);
+}
+.trecho-dir::before {
+  background: radial-gradient(70% 95% at 92% 50%, rgba(5, 10, 20, 0.88), rgba(5, 10, 20, 0.5) 46%, transparent 74%);
+}
+.trecho-baixo::before {
+  background: linear-gradient(transparent 48%, rgba(5, 10, 20, 0.82) 74%, #060a12);
+}
+@media (max-width: 1023px) {
+  .trecho-esq::before,
+  .trecho-dir::before {
+    background: linear-gradient(transparent 30%, rgba(5, 10, 20, 0.86) 58%, #050a14);
   }
-  100% {
-    transform: translateX(-50%);
+  .trecho-baixo::before {
+    background: linear-gradient(transparent 34%, rgba(5, 10, 20, 0.88) 54%, #060a12 88%);
   }
 }
 
-.hero-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: hero-marquee 70s linear infinite;
+/* Sem 3D (menos movimento ou sem WebGL): a mesma história, em quadros parados */
+.galpao-parado [data-trecho] {
+  height: auto;
 }
-
-.hero-marquee-track.is-paused {
-  animation-play-state: paused;
+.galpao-parado .trecho,
+.galpao-parado .trecho-hero {
+  position: relative;
+  min-height: 100svh;
+  height: auto;
+  padding-block: 7rem 5rem;
+  background: center / cover no-repeat;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-marquee-track {
-    animation: none;
-  }
+.galpao-parado .trecho-hero {
+  background-image: url(/images/sistemas/parada-0.webp);
 }
-
-.hero-marquee-mask {
-  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+.galpao-parado .trecho-erp {
+  background-image: url(/images/sistemas/parada-2.webp);
 }
-
-.emt-azul {
-  background: radial-gradient(95% 85% at 62% 34%, #3f6ff0 0, #1d4ed8 42%, #1636a8 100%);
+.galpao-parado .trecho-crm {
+  background-image: url(/images/sistemas/parada-3.webp);
 }
-
-.emt-noite {
-  background: radial-gradient(85% 80% at 66% 36%, #1f3fb4 0, #0f1f78 46%, #0a1450 100%);
+.galpao-parado .trecho-steelflow {
+  background-image: url(/images/sistemas/parada-4.webp);
+}
+.galpao-parado .trecho-corte {
+  background-image: url(/images/sistemas/parada-5.webp);
+}
+.galpao-parado .trecho-portao {
+  background-image: url(/images/sistemas/parada-6.webp);
 }
