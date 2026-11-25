@@ -1,7 +1,6 @@
 import { lazy, Suspense, useLayoutEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import ScrollGradient from './components/ScrollGradient'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 
@@ -54,10 +53,9 @@ function AppShell() {
 
   return (
     <>
-      {!isSitesPage && <ScrollGradient />}
       <Navbar />
       {!isSitesPage && <WhatsAppButton />}
-      <main className={`relative z-10 w-full max-w-[100vw] ${isSitesPage ? '' : 'overflow-x-clip'}`}>
+      <main className={`relative z-10 w-full max-w-[100vw] ${isSitesPage ? 'bg-[var(--color-void)]' : 'overflow-x-clip bg-noite'}`}>
         <Suspense fallback={<div className="min-h-svh" />}>
           <Routes>
             <Route path="/" element={<Home />} />

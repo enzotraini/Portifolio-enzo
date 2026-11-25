@@ -1,256 +1,74 @@
-import { useEffect, useState } from 'react'
-import Footer from '../components/Footer'
-import { systemScreens } from '../data/heroShowcase'
-import { EMT_SYSTEM_URL } from '../utils/links'
+import { Link } from 'react-router-dom'
+import PaginaProduto, { Bloco, BlocoLargo, Lista } from '../components/PaginaProduto'
+import { produtos } from '../data/produtos'
+import { STEELFLOW_URL } from '../utils/links'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
-const modules = [
-  {
-    title: 'Financeiro e faturamento',
-    description: 'Controle de contas, recebimentos, fluxo de caixa e indicadores para decisões mais seguras.',
-  },
-  {
-    title: 'Clientes e atendimento',
-    description: 'Cadastro centralizado, histórico completo e acompanhamento da jornada de cada cliente.',
-  },
-  {
-    title: 'Operação e produtividade',
-    description: 'Organização de processos internos, tarefas e rotinas para reduzir gargalos e retrabalho.',
-  },
-  {
-    title: 'Relatórios gerenciais',
-    description: 'Painéis com métricas-chave para acompanhar desempenho e crescimento do negócio.',
-  },
-]
-
-const diferencials = [
-  'Sistema web acessível de qualquer lugar',
-  'Implementação com suporte próximo',
-  'Evolução contínua conforme o negócio cresce',
-  'Arquitetura focada em estabilidade e segurança',
-]
+const erp = produtos.find((p) => p.id === 'erp')
+const azul = { frio: [0.06, 0.19, 0.6], brilho: [0.74, 0.86, 1], quente: [0.5, 0.56, 0.68] }
+const img = (nome, alt, h = 725) => ({ src: `/images/sistemas/erp-${nome}.webp`, alt, w: 1600, h })
 
 export default function SystemPage() {
-  const [activeIndex, setActiveIndex] = useState(null)
-  const waHref = getWhatsAppUrl(
-    'Olá! Tenho interesse no EMT ERP e gostaria de uma demonstração.',
-  )
-  const activeScreen = activeIndex === null ? null : systemScreens[activeIndex]
-
   return (
-    <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#120a8f] via-[#191970] to-[#120a8f] px-5 pb-18 pt-30 sm:px-6 md:px-12 md:pt-34 lg:px-24">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 60% 45% at 50% 0%, rgba(165, 180, 252, 0.28), transparent 68%), radial-gradient(ellipse 24% 30% at 100% 88%, rgba(147, 197, 253, 0.2), transparent 70%)',
-          }}
-        />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-[1.15fr_0.85fr] md:items-center">
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/90">
-              EMT ERP
-            </p>
-            <h1 className="text-4xl font-display font-bold leading-tight text-white sm:text-5xl">
-              Sistema de gestão empresarial para organizar e escalar sua operação
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-lg">
-              Uma plataforma desenvolvida para centralizar processos, melhorar a visão do negócio e
-              aumentar produtividade com dados em tempo real.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href={EMT_SYSTEM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
-              >
-                Acessar sistema
-              </a>
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/30 bg-white/15 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20"
-              >
-                Agendar demonstração
-              </a>
-            </div>
-          </div>
-          <aside className="rounded-3xl border border-white/20 bg-white/15 p-6 shadow-2xl sm:p-8">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-200/95">Principais ganhos</p>
-            <ul className="mt-5 space-y-3">
-              {diferencials.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-relaxed text-white/90 sm:text-base">
-                  <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-300" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </aside>
-        </div>
-      </section>
-
-      <section className="bg-white px-5 py-16 sm:px-6 md:px-12 md:py-20 lg:px-24">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)]">
-            Por dentro do sistema
-          </p>
-          <h2 className="mt-3 max-w-3xl text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
-            As telas da operação, do login ao financeiro
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {systemScreens.map((screen, index) => (
-              <button
-                key={screen.src}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
-                aria-label={`Ampliar tela: ${screen.title}`}
-              >
-                <img
-                  src={screen.src}
-                  alt=""
-                  className="aspect-[2/1] w-full object-cover object-top"
-                  loading="lazy"
-                  decoding="async"
-                  width={1920}
-                  height={960}
-                />
-                <span className="block px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
-                  {screen.title}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[var(--color-void)] px-5 py-20 sm:px-6 md:px-12 md:py-24 lg:px-24">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)]">
-            Funcionalidades
-          </p>
-          <h2 className="mt-3 max-w-3xl text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
-            Tudo o que sua empresa precisa para uma gestão mais inteligente
-          </h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {modules.map((module) => (
-              <article
-                key={module.title}
-                className="rounded-2xl border border-[var(--color-border)] bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-xl font-display font-bold text-[var(--color-navy)]">{module.title}</h3>
-                <p className="mt-3 text-[var(--color-muted)] leading-relaxed">{module.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white px-5 pb-20 sm:px-6 md:px-12 md:pb-24 lg:px-24">
-        <div className="mx-auto max-w-6xl rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-8 sm:p-10 md:p-12">
-          <h2 className="text-3xl font-display font-bold text-[var(--color-navy)] sm:text-4xl">
-            Quer ver como esse sistema pode funcionar na sua empresa?
-          </h2>
-          <p className="mt-4 max-w-3xl text-[var(--color-muted)] leading-relaxed">
-            Apresentamos o fluxo completo com base na realidade da sua operação, mostrando como o
-            software reduz tarefas manuais, melhora controle e acelera decisões.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
-            >
-              Falar com especialista
-            </a>
-            <a
-              href={EMT_SYSTEM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[var(--color-border)] bg-white px-7 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:bg-[var(--color-surface)]"
-            >
-              Ir para login
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-      {activeScreen && (
-        <ScreenLightbox
-          screen={activeScreen}
-          onClose={() => setActiveIndex(null)}
-          onPrev={() => setActiveIndex((index) => (index - 1 + systemScreens.length) % systemScreens.length)}
-          onNext={() => setActiveIndex((index) => (index + 1) % systemScreens.length)}
-        />
-      )}
-    </>
-  )
-}
-
-function ScreenLightbox({ screen, onClose, onPrev, onNext }) {
-  useEffect(() => {
-    const onKey = (event) => {
-      if (event.key === 'Escape') onClose()
-      if (event.key === 'ArrowLeft') onPrev()
-      if (event.key === 'ArrowRight') onNext()
-    }
-    document.addEventListener('keydown', onKey)
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = previousOverflow
-    }
-  }, [onClose, onPrev, onNext])
-
-  return (
-    <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/80 p-4 sm:p-8"
-      role="dialog"
-      aria-modal="true"
-      aria-label={screen.alt}
-      onClick={onClose}
+    <PaginaProduto
+      nome="EMT ERP"
+      titulo="Da cotação à nota, no mesmo sistema."
+      texto="Financeiro, faturamento, NF-e, clientes e vendas numa plataforma web, com os dados da operação em tempo real."
+      cores={azul}
+      tela={img('atendimento', 'Atendimento no EMT ERP, com uma cotação de chapas por medida e peso', 675)}
+      acesso={erp.acesso}
+      whatsapp={getWhatsAppUrl(erp.whatsapp)}
+      contato={{ titulo: 'Quer ver o EMT ERP na sua empresa?', mensagem: erp.whatsapp }}
     >
-      <div
-        className="relative w-full max-w-6xl"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <img
-          src={screen.src}
-          alt={screen.alt}
-          className="max-h-[min(82vh,920px)] w-full rounded-xl bg-slate-900 object-contain shadow-2xl"
-        />
-        <p className="mt-3 text-center text-sm font-semibold text-white">{screen.title}</p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute -top-3 right-0 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-navy)] shadow-md sm:-right-3"
-          aria-label="Fechar imagem"
-        >
-          <span aria-hidden className="text-xl leading-none">×</span>
-        </button>
-        <button
-          type="button"
-          onClick={onPrev}
-          className="absolute top-1/2 left-2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[var(--color-navy)] shadow-md sm:left-3"
-          aria-label="Imagem anterior"
-        >
-          ‹
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          className="absolute top-1/2 right-2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[var(--color-navy)] shadow-md sm:right-3"
-          aria-label="Próxima imagem"
-        >
-          ›
-        </button>
-      </div>
-    </div>
+      <Bloco
+        fundo="azul"
+        titulo="O atendimento vira pedido sem recomeçar."
+        texto="Cliente, medida, peso, condição e preço no mesmo lugar. Fechou a cotação, ela segue para o pedido com o que já foi preenchido."
+        itens={['Atendimento e agenda de cotações', 'Pedidos de venda e de compra', 'Clientes, vendedores e transportadoras', 'Condições de pagamento']}
+        tela={{ src: '/images/sistemas/tela-erp.webp', alt: 'Lista de cotações do dia no EMT ERP', w: 960, h: 1040 }}
+        estreita
+      />
+      <BlocoLargo
+        fundo="azul"
+        titulo="Desconto passa por quem decide."
+        texto="Item abaixo da tabela entra na fila de liberação. Quem tem permissão libera, nega ou desfaz, com cliente, vendedor e desconto à vista."
+        tela={img('preco', 'Fila de liberação de preço com cotações aguardando, liberadas e negadas')}
+      />
+      <Bloco
+        fundo="azul"
+        titulo="Nota emitida e conferida na SEFAZ."
+        texto="Emissão, controle e consulta de NF-e em telas próprias, com a situação de cada nota à vista."
+        itens={['Emissão e controle de notas', 'Consulta de NF-e destinadas', 'ICMS, PIS, COFINS, IBPT e Simples Nacional', 'Natureza de operação e classificação fiscal']}
+        tela={img('nota', 'Notas fiscais com situação na SEFAZ', 885)}
+        inverter
+      />
+      <BlocoLargo
+        fundo="azul"
+        titulo="O que entra, o que sai e o que venceu."
+        texto="Contas a receber e a pagar por vencimento. Receba, prorrogue e veja as vencidas sem sair da tela."
+        tela={img('receber', 'Contas a receber com duplicatas a vencer, vencidas e recebidas')}
+      />
+      <Bloco
+        fundo="azul"
+        titulo="Estoque que sabe de qual corrida saiu."
+        texto="Cada entrada e cada saída ficam no kardex, com documento, corrida e saldo. Para produto e para matéria-prima."
+        itens={['Kardex de produto e de matéria-prima', 'Entrada de mercadoria', 'Corridas', 'Listagem de estoque']}
+        tela={img('kardex', 'Kardex de uma barra 4140 com movimentos por corrida', 885)}
+      />
+      <Lista
+        titulo="Como ele chega na sua empresa"
+        itens={[
+          ['Acesso web', 'Sistema web acessível de qualquer lugar.'],
+          ['Permissão por cargo', 'Cada usuário vê o que faz parte do trabalho dele.'],
+          ['Implementação próxima', 'Implementação com suporte próximo, do cadastro ao primeiro faturamento.'],
+          ['Evolução contínua', 'O sistema evolui conforme o negócio cresce.'],
+        ]}
+      />
+      <section className="px-5 pt-32 sm:px-8 lg:px-14 lg:pt-52">
+        <p className="max-w-[26ch] text-[clamp(1.9rem,4vw,3.9rem)] leading-[1.12] font-medium tracking-[-0.03em] text-apagado">
+          E a cotação não para aqui. O <Link to="/crm" className="text-claro underline decoration-white/30 underline-offset-8 hover:decoration-white">EMT CRM</Link> acompanha até fechar, e o <a href={STEELFLOW_URL} target="_blank" rel="noopener noreferrer" className="text-claro underline decoration-white/30 underline-offset-8 hover:decoration-white">SteelFlow</a> leva o pedido para a serra.
+        </p>
+      </section>
+    </PaginaProduto>
   )
 }

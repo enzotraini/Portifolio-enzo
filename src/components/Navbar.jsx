@@ -1,243 +1,75 @@
-import { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { STEELFLOW_URL } from '../utils/links'
-import SteelFlowLink from './SteelFlowLink'
+import { getWhatsAppUrl } from '../utils/whatsapp'
 
 const links = [
-  { to: '/sistema-gestao', label: 'EMT ERP' },
-  { to: '/crm', label: 'EMT CRM' },
-  { href: STEELFLOW_URL, label: 'SteelFlow', confirmRedirect: true },
-  { to: '/sites', label: 'Criador de sites' },
-  { href: '/#sobre', label: 'Sobre' },
-  { href: '/#contato', label: 'Contato' },
+  ['EMT ERP', '/sistema-gestao'],
+  ['EMT CRM', '/crm'],
+  ['SteelFlow', STEELFLOW_URL],
+  ['Como trabalhamos', '/#como-trabalhamos'],
+  ['Sobre', '/#sobre'],
 ]
+const zap = getWhatsAppUrl('Olá! Gostaria de conversar sobre um sistema para minha empresa.')
 
-function NavItem({ link, className, onClick }) {
-  if (link.confirmRedirect) {
-    return (
-      <SteelFlowLink className={className} onNavigate={onClick}>
-        {link.label}
-      </SteelFlowLink>
-    )
-  }
-  if (link.external) {
-    return (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        onClick={onClick}
-      >
-        {link.label}
-      </a>
-    )
-  }
-  if (link.to || (typeof link.href === 'string' && link.href.startsWith('/#'))) {
-    return (
-      <Link to={link.to || link.href} className={className} onClick={onClick}>
-        {link.label}
-      </Link>
-    )
-  }
-  return (
-    <a href={link.href} className={className} onClick={onClick}>
-      {link.label}
-    </a>
-  )
+function Item({ nome, destino, className, onClick }) {
+  if (destino.startsWith('/')) return <Link to={destino} className={className} onClick={onClick}>{nome}</Link>
+  return <a href={destino} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>{nome}</a>
 }
 
-function linkKey(link) {
-  return link.to || link.href
-}
-
-function navLinkClass(useLightNav) {
-  return `text-sm font-medium transition-colors whitespace-nowrap ${
-    useLightNav
-      ? 'text-[var(--color-muted)] hover:text-[var(--color-navy)]'
-      : 'text-white hover:text-white/85'
-  }`
-}
-
-function SupportIcon({ className }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="4" />
-      <path d="M4.93 4.93l2.83 2.83" />
-      <path d="M16.24 16.24l2.83 2.83" />
-      <path d="M4.93 19.07l2.83-2.83" />
-      <path d="M16.24 7.76l2.83-2.83" />
-    </svg>
-  )
-}
-
-function supportBtnClass(useLightNav) {
-  const base =
-    'inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
-
-  if (useLightNav) {
-    return `${base} bg-[var(--color-primary)] text-white shadow-md shadow-blue-600/25 hover:bg-[var(--color-primary-hover)] hover:shadow-lg hover:shadow-blue-600/30 focus-visible:outline-[var(--color-primary)]`
-  }
-
-  return `${base} bg-white text-[var(--color-primary)] shadow-lg shadow-black/20 hover:bg-blue-50 hover:shadow-xl focus-visible:outline-white`
+function Suporte({ className }) {
+  return <a href="/Suporte-EMT.exe" download="Suporte-EMT.exe" className={className}>Suporte</a>
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [pastHero, setPastHero] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const location = useLocation()
-  const isHome = location.pathname === '/'
-  const useLightNav = !isHome || pastHero || mobileOpen
+  const [aberto, setAberto] = useState(false)
+  const [rolou, setRolou] = useState(false)
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY
-      const nextScrolled = y > 20
-      const hero = document.getElementById('hero')
-      const nextPastHero = hero
-        ? hero.getBoundingClientRect().bottom < 72
-        : y > Math.min(window.innerHeight, 1100) * 0.82
-      setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
-      setPastHero((current) => (current === nextPastHero ? current : nextPastHero))
-    }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-    }
+    const ver = () => setRolou(window.scrollY > 24)
+    ver()
+    window.addEventListener('scroll', ver, { passive: true })
+    return () => window.removeEventListener('scroll', ver)
   }, [])
 
-  const supportClass = supportBtnClass(useLightNav)
+  useEffect(() => {
+    if (!aberto) return
+    const tecla = (e) => e.key === 'Escape' && setAberto(false)
+    document.addEventListener('keydown', tecla)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', tecla)
+      document.body.style.overflow = ''
+    }
+  }, [aberto])
+
+  const fechar = () => setAberto(false)
+  const solido = pathname === '/sites' || aberto
 
   return (
-    <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          useLightNav
-            ? 'bg-white border-b border-[var(--color-border)] shadow-sm'
-            : scrolled
-              ? 'border-b border-white/10 bg-[#1d4ed8]/55 backdrop-blur-md'
-              : 'border-b border-transparent bg-transparent'
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <nav className="relative mx-auto flex max-w-[1600px] items-center justify-between gap-x-4 px-5 py-3.5 sm:px-6 md:px-12 md:py-4 lg:px-24">
-          {/* Esquerda: marca */}
-          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-            <Link
-              to="/"
-              onClick={() => {
-                if (location.pathname === '/' && !location.hash) window.scrollTo(0, 0)
-              }}
-              className={`relative z-10 font-display shrink-0 text-lg font-bold transition-colors sm:text-xl ${
-                useLightNav ? 'text-[var(--color-navy)]' : 'text-white'
-              }`}
-            >
-              EMT
-            </Link>
+    <header className={`fixed inset-x-0 top-0 z-50 text-claro transition-colors duration-300 ${solido ? 'bg-noite' : ''}`}>
+      {!solido && <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-noite from-30% via-noite/80 via-65% to-transparent transition-opacity duration-300 ${rolou ? 'opacity-100' : 'opacity-0'}`} />}
+      <nav className="flex h-[76px] items-center px-5 sm:px-8 lg:px-14" aria-label="Principal">
+        <Link to="/" onClick={() => { fechar(); if (pathname === '/' && !hash) window.scrollTo(0, 0) }} className="flex-1 text-2xl font-bold tracking-[-0.04em]">EMT</Link>
+        <div className="hidden items-center gap-8 lg:flex">
+          {links.map(([nome, destino]) => <Item key={nome} nome={nome} destino={destino} className="text-[0.95rem] text-gelo transition-colors hover:text-white" />)}
+        </div>
+        <div className="hidden flex-1 items-center justify-end gap-6 lg:flex">
+          <Suporte className="text-[0.95rem] text-gelo transition-colors hover:text-white" />
+          <a href={zap} target="_blank" rel="noopener noreferrer" className="inline-flex h-11 items-center rounded-full bg-claro px-5 text-[0.95rem] font-medium text-noite transition-colors hover:bg-white">Falar no WhatsApp</a>
+        </div>
+        <button type="button" onClick={() => setAberto(!aberto)} aria-expanded={aberto} aria-controls="menu" className="-mr-2 px-2 py-3 font-medium lg:hidden">{aberto ? 'Fechar' : 'Menu'}</button>
+      </nav>
+      {aberto && (
+        <div id="menu" className="flex h-[calc(100svh-76px)] flex-col overflow-y-auto px-5 pt-6 pb-10 sm:px-8 lg:hidden">
+          {links.map(([nome, destino]) => <Item key={nome} nome={nome} destino={destino} onClick={fechar} className="titulo py-3 text-4xl" />)}
+          <div className="mt-auto grid gap-3 pt-10">
+            <Suporte className="py-3 text-gelo" />
+            <a href={zap} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-claro font-medium text-noite">Falar no WhatsApp</a>
           </div>
-
-          <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-            <div className="flex items-center gap-5 xl:gap-8">
-              {links.map((link) => (
-                <NavItem key={linkKey(link)} link={link} className={navLinkClass(useLightNav)} />
-              ))}
-            </div>
-          </div>
-
-          {/* Direita: CTAs ou menu */}
-          <div className="flex justify-end">
-            <div className="hidden items-center lg:flex">
-              <a href="/Suporte-EMT.exe" download="Suporte-EMT.exe" className={supportClass}>
-                <SupportIcon className="h-4 w-4" />
-                Suporte
-              </a>
-            </div>
-
-            <button
-              type="button"
-              className={`rounded-lg p-2 lg:hidden ${useLightNav ? 'text-[var(--color-navy)]' : 'text-white'}`}
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
-              aria-expanded={mobileOpen}
-            >
-              <div className="flex h-5 w-6 flex-col justify-between">
-                <motion.span
-                  className="block h-0.5 w-full rounded bg-current"
-                  animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                />
-                <motion.span
-                  className="block h-0.5 w-full rounded bg-current"
-                  animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                />
-                <motion.span
-                  className="block h-0.5 w-full rounded bg-current"
-                  animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                />
-              </div>
-            </button>
-          </div>
-        </nav>
-      </motion.header>
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-white pt-24 lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setMobileOpen(false)}
-            role="presentation"
-          >
-            <motion.nav
-              className="flex flex-col items-start gap-6 px-6"
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {links.map((link) => (
-                <NavItem
-                  key={linkKey(link)}
-                  link={link}
-                  className="font-display text-xl font-semibold text-[var(--color-navy)]"
-                  onClick={() => setMobileOpen(false)}
-                />
-              ))}
-              <div className="mt-2 border-t border-[var(--color-border)] pt-6">
-                <a
-                  href="/Suporte-EMT.exe"
-                  download="Suporte-EMT.exe"
-                  className={`${supportBtnClass(true)} w-full`}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <SupportIcon className="h-4 w-4" />
-                  Baixar suporte remoto
-                </a>
-                <p className="mt-2 text-center text-xs text-[var(--color-muted)]">
-                  Acesso remoto para assistência técnica
-                </p>
-              </div>
-            </motion.nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        </div>
+      )}
+    </header>
   )
 }
