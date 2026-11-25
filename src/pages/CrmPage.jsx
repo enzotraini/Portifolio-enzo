@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 import { EMT_CRM_URL } from '../utils/links'
 import { getWhatsAppUrl } from '../utils/whatsapp'
 
-const DEFAULT_TITLE = 'EMT Informática | Sites, sistemas e apps para empresas'
+const DEFAULT_TITLE = 'EMT Informática | ERP, CRM e software para empresas'
 
 const modules = [
   {

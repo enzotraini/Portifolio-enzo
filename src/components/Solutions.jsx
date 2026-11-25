@@ -5,22 +5,12 @@ import RevealWords from './RevealWords'
 
 const items = [
   {
-    title: 'Sites institucionais',
+    title: 'Sites e landing pages',
     description: 'Presença profissional, landing pages e sites que convertem visitantes em contatos.',
     to: '/sites',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Sistemas e aplicativos',
-    description: 'Sistemas web sob medida e apps que organizam processos, finanças e operações do dia a dia.',
-    to: '/sistema-gestao',
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
       </svg>
     ),
   },
@@ -49,10 +39,10 @@ export default function Solutions() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          O que entregamos
+          Também fazemos
         </motion.p>
         <RevealWords
-          text="Soluções digitais para sua empresa crescer com segurança"
+          text="Sites e automação, para completar a operação"
           className="text-center text-3xl sm:text-4xl font-display font-bold text-[var(--color-navy)] mb-4 max-w-3xl mx-auto"
         />
         <motion.p
@@ -61,9 +51,9 @@ export default function Solutions() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Da presença online à operação interna, com um time próximo do seu negócio.
+          Do site que traz o contato à automação que tira trabalho manual do time.
         </motion.p>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {items.map((item, i) => (
             <motion.div
               key={item.title}
@@ -81,11 +71,7 @@ export default function Solutions() {
                 <h3 className="text-xl font-display font-bold text-[var(--color-navy)] mb-3">{item.title}</h3>
                 <p className="text-[var(--color-muted)] leading-relaxed mb-6">{item.description}</p>
                 <span className="font-semibold text-[var(--color-primary)] group-hover:underline inline-flex items-center gap-1">
-                  {item.to === '/sistema-gestao'
-                    ? 'EMT ERP'
-                    : item.to === '/sites'
-                      ? 'Criador de sites'
-                      : 'Fale conosco'}
+                  {item.to === '/sites' ? 'Criador de sites' : 'Fale conosco'}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>

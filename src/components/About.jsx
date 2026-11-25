@@ -3,10 +3,10 @@ import { motion, useInView } from 'framer-motion'
 import RevealWords from './RevealWords'
 
 const bullets = [
-  'Sites institucionais e landing pages',
-  'Sistemas web sob medida',
-  'Aplicativos e plataformas',
+  'EMT ERP, EMT CRM e SteelFlow',
+  'Sistemas web e aplicativos',
   'Automação e integrações',
+  'Sites institucionais e landing pages',
 ]
 
 export default function About() {
@@ -29,8 +29,8 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.06 }}
           >
             <p className="text-[var(--color-foreground)]">
-              Desenvolvemos sites, sistemas web e aplicativos que resolvem problemas reais e ajudam empresas
-              a operar melhor.
+              Desenvolvemos software próprio, o EMT ERP, o EMT CRM e o SteelFlow, e também sites e automações
+              que ajudam empresas a operar melhor.
             </p>
             <p>
               Atuamos com diferentes segmentos: cada projeto nasce do que você precisa medir, automatizar
